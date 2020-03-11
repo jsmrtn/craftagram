@@ -43,7 +43,7 @@ That's it! You won't need any extra setup now. What you will need to do is go to
 
 Go to the settings page for `craftagram` and enter your `App ID` and `App Secret` from the step above into the required boxes, and hit 'Save'. When the page refreshes, you'll see there's a new button `Get Authorization URL`. Click that button to generate the URL, and then follow the URL to Instagram.
 
-Instagram may challenge you with a login screen, so handle that, then click 'Authorize'. It'll do some work, and then you'll land on a page that says the token has been successfully added and generated. You can close that page, you're now set up!
+Instagram may challenge you with a login screen, so handle that, then click 'Authorize'. It'll do some work, and then redirect you back to Craft with the Long Access Token field populated.
 
 ### Keeping your token active
 

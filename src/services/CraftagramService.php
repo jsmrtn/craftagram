@@ -14,6 +14,7 @@ use scaramangagency\craftagram\Craftagram;
 
 use Craft;
 use craft\base\Component;
+use craft\services\Plugins;
 use putyourlightson\logtofile\LogToFile;
 
 /**
@@ -24,7 +25,7 @@ use putyourlightson\logtofile\LogToFile;
 class CraftagramService extends Component
 {
     
-    public static function refreshToken() {
+    public function refreshToken() {
         $ch = curl_init();
             
         $params = [
@@ -49,12 +50,12 @@ class CraftagramService extends Component
         return true;
     }
 
-    public static function getShortAccessToken($code) {
+    public function getShortAccessToken($code) {
         $ch = curl_init();
             
         $params = [
-            "client_id" => Craftagram::getInstance()->getSettings()->appId,
-            "client_secret" => Craftagram::getInstance()->getSettings()->appSecret,
+            "client_id" => Craftagram::$plugin->getSettings()->appId,
+            "client_secret" => Craftagram::$plugin->getSettings()->appSecret,
             "grant_type" => "authorization_code",
             "redirect_uri" => Craft::$app->sites->primarySite->baseUrl . "/actions/craftagram/default/auth",
             "code" => $code
@@ -70,15 +71,15 @@ class CraftagramService extends Component
         curl_close($ch);
         $shortAccessToken = json_decode($res)->access_token;
 
-        return CraftagramService::getLongAccessToken($shortAccessToken);
+        return Craftagram::$plugin->craftagramService->getLongAccessToken($shortAccessToken);
     }
 
 
-    public static function getLongAccessToken($shortAccessToken) {
+    public function getLongAccessToken($shortAccessToken) {
         $ch = curl_init();
 
         $params = [
-            "client_secret" => Craftagram::getInstance()->getSettings()->appSecret,
+            "client_secret" => Craftagram::$plugin->getSettings()->appSecret,
             "grant_type" => "ig_exchange_token",
             "access_token" => $shortAccessToken
         ];
@@ -91,25 +92,31 @@ class CraftagramService extends Component
         curl_close($ch);
         $token = json_decode($res)->access_token;
 
-        Craftagram::getInstance()->setSettings(["longAccessToken" => $token]);
+        $plugin = Craft::$app->getPlugins()->getPlugin('craftagram');
+
+        if ($plugin !== null) {
+            Craft::$app->getPlugins()->savePluginSettings($plugin, array("longAccessToken" => $token));
+        }
+        
+        //Craftagram::$plugin->setSettings(array("longAccessToken" => $token));
         return $token;
     }
 
 
-    public static function getInstagramFeed($limit, $after) {
+    public function getInstagramFeed($limit, $after) {
         $ch = curl_init();
 
         if ($after != "") {
             $params = [
                 "fields" => "caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username",
-                "access_token" => Craftagram::getInstance()->getSettings()->longAccessToken,
+                "access_token" => Craftagram::$plugin->getSettings()->longAccessToken,
                 "limit" => $limit,
                 "after" => $after
             ];
         } else {
             $params = [
                 "fields" => "caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username",
-                "access_token" => Craftagram::getInstance()->getSettings()->longAccessToken,
+                "access_token" => Craftagram::$plugin->getSettings()->longAccessToken,
                 "limit" => $limit
             ];
     

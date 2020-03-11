@@ -36,7 +36,7 @@ class DefaultController extends Controller
 
     public function actionRefreshToken()
     {
-        return CraftagramService::refreshToken();
+        return Craftagram::$plugin->craftagramService->refreshToken();
     }
 
     public function actionAuth()
@@ -46,9 +46,8 @@ class DefaultController extends Controller
         $code = $params['code'];
 
         if ($code != "") {
-            $getToken = CraftagramService::getShortAccessToken($code);
-            echo 'Your long access token has been added. You can close this window.';
-            exit;
+            $getToken = Craftagram::$plugin->craftagramService->getShortAccessToken($code);
+            return true;
         }
     }
 
@@ -59,6 +58,6 @@ class DefaultController extends Controller
         $after = $params['after'];
         $limit = $params['limit'];
 
-        return json_encode(CraftagramService::getInstagramFeed($limit, $after));
+        return json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $after));
     }
 }
