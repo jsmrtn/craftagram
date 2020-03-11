@@ -45,7 +45,7 @@ Go to the settings page for `craftagram` and enter your `App ID` and `App Secret
 
 Instagram may challenge you with a login screen, so handle that, then click 'Authorize'. It'll do some work, and then you'll land on a page that says the token has been successfully added and generated. You can close that page, you're now set up!
 
-## Keeping your token active
+## Keeping your token active
 
 Instagram tokens expire in 60 days, so you'll need to set up a cron job to keep the token alive. The refresh action is `actions/craftagram/default/refresh-token`.
 
@@ -81,7 +81,7 @@ The options that you get are [all of the options](https://developers.facebook.co
 | timestamp | The Media's publish date in ISO 8601 format. |
 | username | The Media owner's username. |
 
-### Pagination
+### Pagination
 
 If you're limiting, you'll need to paginate. You can get the next URL using `{{ craftagram.paging.next|url_encode }}`. **You will need** to use the `url_encode` filter, otherwise the pagination will fail.
 
