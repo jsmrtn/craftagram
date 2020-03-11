@@ -1,0 +1,73 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * craftagram plugin for Craft CMS 3.x
+ *
+ * craftagram Settings.twig
+ *
+ * @author    Scaramanga Agency
+ * @copyright Copyright (c) 2020 Scaramanga Agency
+ * @link      https://scaramanga.agency
+ * @package   Craftagram
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+<div class="hidden" data-js="auth-button">
+    <a data-js="auth-app" class="btn submit">Get Authorization URL</a>
+    <div class="field" data-js="auth-url"></div>
+    <hr />
+</div>
+
+{{ forms.textField({
+    label: 'Instagram App ID',
+    instructions: 'Enter your App ID here. This is the Instagram App ID and **not** the Facebook App ID. If you\'re unsure, check the README.',
+    id: 'appId',
+    name: 'appId',
+    required: 'required',
+    value: settings['appId'],
+    errors: settings.getErrors('appId')})
+}}
+
+{{ forms.textField({
+    label: 'Instagram App Secret',
+    instructions: 'Enter your App Secret here',
+    id: 'appSecret',
+    name: 'appSecret',
+    required: 'required',
+    value: settings['appSecret'],
+    errors: settings.getErrors('appSecret')})
+}}
+
+{{ forms.textField({
+    label: 'Long Access Token',
+    id: 'longAccessToken',
+    name: 'longAccessToken',
+    disabled: 'disabled',
+    value: settings['longAccessToken']})
+}}
+
+{% js %}
+    $(document).ready(function() {
+        
+        $(document).on("blur keyup", "#settings-appId", function() { 
+            if ($(this).val().length < 16) {
+                $("[data-js=auth-app]").attr("disabled", "disabled").removeClass("submit").addClass("disabled");
+            } else {
+                $("[data-js=auth-app]").removeAttr("disabled").addClass("submit").removeClass("disabled");
+            }
+        });
+
+        $(document).on("click", "[data-js=auth-app]", function() {
+            var $appId = $("#settings-appId").val();
+
+            $("[data-js=auth-url]").html("<a href='https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ craft.app.sites.primarySite.baseUrl }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code' target='_blank'>https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ craft.app.sites.primarySite.baseUrl }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code</a>");
+        });
+
+        if ($("#settings-appId").val().length >= 16 && $("#settings-appId").val() != "") {
+            $("[data-js=auth-button]").toggleClass("hidden");
+        }
+    });
+{% endjs %}
