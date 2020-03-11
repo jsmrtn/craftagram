@@ -45,7 +45,7 @@ Go to the settings page for `craftagram` and enter your `App ID` and `App Secret
 
 Instagram may challenge you with a login screen, so handle that, then click 'Authorize'. It'll do some work, and then you'll land on a page that says the token has been successfully added and generated. You can close that page, you're now set up!
 
-## Keeping your token active
+### Keeping your token active
 
 Instagram tokens expire in 60 days, so you'll need to set up a cron job to keep the token alive. The refresh action is `actions/craftagram/default/refresh-token`.
 
@@ -72,6 +72,7 @@ You can pass one parameter to the variable, `limit`. The default limit from inst
 The options that you get are [all of the options](https://developers.facebook.com/docs/instagram-basic-display-api/reference/media#fields) provided from the API endpoint. For brevity, they are:
 
 | Field Name | Description |
+| --- | --- |
 | caption | The Media's caption text. Not returnable for Media in albums. |
 | id | The Media's ID. |
 | media_type | The Media's type. Can be IMAGE, VIDEO, or CAROUSEL_ALBUM. |
