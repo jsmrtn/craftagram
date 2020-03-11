@@ -51,6 +51,12 @@ Instagram may challenge you with a login screen, so handle that, then click 'Aut
 
 Instagram tokens expire in 60 days, so you'll need to set up a cron job to keep the token alive. The refresh action is `actions/craftagram/default/refresh-token`.
 
+For example, this would run the token refresh every month
+
+```
+/usr/bin/wget -q 0 0 1 * * https://scaramanga.agency/actions/craftagram/default/refresh-token >/dev/null 2>&1
+```
+
 If you fail to set up the cron, you can still refresh the token manaully, by going to the settings page, clicking the `Get Authorizaton URL` and following the steps outlined above.
 
 ## Using craftagram
