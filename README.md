@@ -115,5 +115,5 @@ For example, you could do this to have a 'load more' button:
     });
 {% endjs %}
 ```
-
+---
 Brought to you by [Scaramanga Agency](https://scaramanga.agency)
