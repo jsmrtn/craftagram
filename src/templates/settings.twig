@@ -52,7 +52,7 @@
     $(document).ready(function() {
         
         $(document).on("blur keyup", "#settings-appId", function() { 
-            if ($(this).val().length < 16) {
+            if ($(this).val().length < 15) {
                 $("[data-js=auth-app]").attr("disabled", "disabled").removeClass("submit").addClass("disabled");
             } else {
                 $("[data-js=auth-app]").removeAttr("disabled").addClass("submit").removeClass("disabled");
@@ -65,7 +65,7 @@
             $("[data-js=auth-url]").html("<a href='https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ craft.app.sites.primarySite.baseUrl }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code' target='_blank'>https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ craft.app.sites.primarySite.baseUrl }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code</a>");
         });
 
-        if ($("#settings-appId").val().length >= 16 && $("#settings-appId").val() != "") {
+        if ($("#settings-appId").val().length >= 15 && $("#settings-appId").val() != "") {
             $("[data-js=auth-button]").toggleClass("hidden");
         }
     });

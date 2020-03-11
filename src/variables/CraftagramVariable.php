@@ -31,6 +31,6 @@ class CraftagramVariable
      */
     public function getInstagramFeed($limit = 25, $url = "")
     {
-        return Craftagram::$plugin->CraftagramService->getInstagramFeed($limit, $url);
+        return Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $url);
     }
 }

@@ -24,17 +24,19 @@ To install the plugin, follow these instructions.
 
 This is just a shortened version of what is available at the [official docs](https://developers.facebook.com/docs/instagram-basic-display-api/getting-started), so if you get stuck, check out the official docs.
 
-1. Go to https://developers.facebook.com, click My Apps, and create a new app. Once you have created the app and are in the App Dashboard, navigate to Settings > Basic, scroll the bottom of page, and click Add Platform.
-2. Choose Website, add your website’s URL, and save your changes.
-3. Click Products, locate the Instagram product, and click Set Up to add it to your app.
-4. Click Basic Display, scroll to the bottom of the page, then click Create New App.
-5. In the form that appears, complete each section using the below:
+1. Go to https://developers.facebook.com, click My Apps, and create a new app.
+2. Once you have created the app and are in the App Dashboard, navigate to Settings > Basic, scroll the bottom of page, and click Add Platform.
+3. Choose Website, add your website’s URL, and save your changes.
+4. Click Products, locate the Instagram product, and click Set Up to add it to your app.
+5. Click Basic Display under Products > Instagram in the sidebar, scroll to the bottom of the page, then click Create New App.
+6. In the form that appears, complete each section using the below:
     - **Display Name** Enter the name of the Facebook app you just created. This _should_ pre-populate.
     - **Valid OAuth Redirect URIs** Enter your _Primary Site_ URL, appended with `/actions/craftagram/default/auth` (i.e. https://scaramanga.agency/actions/craftagram/default/auth)
     - **Deauthorize Callback URL** and **Data Deletion Request Callback URL** Use the same URL as above.
     - You can ignore App Review, but **please note** that if you plan to publish this app, then you will need to turn on the `instagram_graph_user_profile` option, as this is required for creating a long access token.
-6. Navigate to Roles > Roles and scroll down to the Instagram Testers section. Click Add Instagram Testers and enter the name of the Instagram account you're linking up.
-7. Open a new web browser and go to www.instagram.com and sign into your Instagram account that you just invited. Navigate to (Profile Icon) > Edit Profile > Apps and Websites > Tester Invites and accept the invitation.
+    - Save Changes
+7. Navigate to Roles > Roles and scroll down to the Instagram Testers section. Click Add Instagram Testers and enter the name of the Instagram account you're linking up.
+8. Open a new web browser and go to www.instagram.com and sign into your Instagram account that you just invited. Navigate to (Profile Icon) > Edit Profile > Apps and Websites > Tester Invites and accept the invitation.
 
 That's it! You won't need any extra setup now. What you will need to do is go to Products > Instagram > Basic Display and scroll down to `Instagram App ID
 ` and `Instagram App Secret`, as you'll need to add these in the next step.
