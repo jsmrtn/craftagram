@@ -16,8 +16,7 @@
 {% import "_includes/forms" as forms %}
 
 <div class="hidden" data-js="auth-button">
-    <a data-js="auth-app" class="btn submit">Get Authorization URL</a>
-    <div class="field" data-js="auth-url"></div>
+    <a data-js="auth-app" class="btn submit">Authorise Craft</a>
     <hr />
 </div>
 
@@ -59,10 +58,11 @@
             }
         });
 
-        $(document).on("click", "[data-js=auth-app]", function() {
+        $(document).on("click", "[data-js=auth-app]:not(.disabled)", function() {
             var $appId = $("#settings-appId").val();
+            var $url = "https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ craft.app.sites.primarySite.baseUrl }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code";
 
-            $("[data-js=auth-url]").html("<a href='https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ craft.app.sites.primarySite.baseUrl }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code' target='_blank'>https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ craft.app.sites.primarySite.baseUrl }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code</a>");
+            window.open($url);
         });
 
         if ($("#settings-appId").val().length >= 15 && $("#settings-appId").val() != "") {
