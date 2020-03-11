@@ -14,7 +14,7 @@
         "docs": "https://github.com/scaramangagency/craftagram/blob/master/README.md",
         "issues": "https://github.com/scaramangagency/craftagram/issues"
     },
-    "license": "MIT",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Scaramanga Agency",
@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0-RC1",
+        "craftcms/cms": "^3.0.0",
         "putyourlightson/craft-log-to-file": "^1.0.0"
     },
     "autoload": {
