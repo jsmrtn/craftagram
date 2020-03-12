@@ -66,9 +66,11 @@ Using the plugin is pretty simple
 ```
 {% set craftagram = craft.craftagram.getInstagramFeed() %}
 
-{% for item in craftagram.data %}
-    <img src={{item.media_url}} />
-{% endfor %}
+{% if craftagram|length %}
+    {% for item in craftagram.data %}
+        <img src={{item.media_url}} />
+    {% endfor %}
+{% endif %}
 ```
 
 You can pass one parameter to the variable, `limit`. The default limit from instagram is 25.
@@ -98,13 +100,15 @@ For example, you could do this to have a 'load more' button:
 ```
 {% set craftagram = craft.craftagram.getInstagramFeed(10) %}
 
-<div data-js="insta-wrapper">
-    {% for item in craftagram.data %}
-        <img src={{item.media_url}} />
-    {% endfor %}
-</div>
+{% if craftagram|length %}
+    <div data-js="insta-wrapper">
+        {% for item in craftagram.data %}
+            <img src={{item.media_url}} />
+        {% endfor %}
+    </div>
 
-<a href="{{ craftagram.paging.next|url_encode }}" data-js="load-more">Load more</a>
+    <a href="{{ craftagram.paging.next|url_encode }}" data-js="load-more">Load more</a>
+{% endif %}
 
 {% js %}
     $("[data-js=load-more]").click(function(e) {
