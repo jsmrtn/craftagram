@@ -43,7 +43,7 @@ That's it! You won't need any extra setup now. What you will need to do is go to
 
 ## Configuring craftagram
 
-Go to the settings page for `craftagram` and enter your `App ID` and `App Secret` from the step above into the required boxes, and hit 'Save'. When the page refreshes, you'll see there's a new button `Get Authorization URL`. Click that button to generate the URL, and then follow the URL to Instagram.
+Go to the settings page for `craftagram` and enter your `App ID` and `App Secret` from the step above into the required boxes, and hit 'Save'. When the page refreshes, you'll see there's a new button `Authorise Craft`. Click that button to go to instagram to complete the authorisation procedure.
 
 Instagram may challenge you with a login screen, so handle that, then click 'Authorize'. It'll do some work, and then redirect you back to Craft with the Long Access Token field populated.
 
@@ -57,7 +57,7 @@ For example, this would run the token refresh every month
 /usr/bin/wget -q 0 0 1 * * https://www.yourwebsite.com/actions/craftagram/default/refresh-token >/dev/null 2>&1
 ```
 
-If you fail to set up the cron, you can still refresh the token manaully, by going to the settings page, clicking the `Get Authorizaton URL` and following the steps outlined above.
+If you fail to set up the cron, you can still refresh the token manaully, by going to the settings page, clicking the `Authorise Craft` and following the steps outlined above.
 
 ## Using craftagram
 
@@ -123,5 +123,11 @@ For example, you could do this to have a 'load more' button:
     });
 {% endjs %}
 ```
+
+### Rate Limits
+
+Be concious you might be subject to rate limits from instagram, so if you're on a high traffic website you might get rate limited. You can read more about rate limits at instagram's [documentation](https://developers.facebook.com/docs/graph-api/overview/rate-limiting#instagram). 
+
+
 ---
 Brought to you by [Scaramanga Agency](https://scaramanga.agency)
