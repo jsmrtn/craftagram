@@ -129,6 +129,7 @@ class CraftagramService extends Component
         $res = curl_exec($ch);
         curl_close($ch);
 
-        return json_decode($res);
+        $res = json_decode($res);
+        return (array_key_exists("data", $res) ? $res : null);
     }
 }
