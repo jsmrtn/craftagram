@@ -31,7 +31,7 @@ This is just a shortened version of what is available at the [official docs](htt
 5. Click Basic Display under Products > Instagram in the sidebar, scroll to the bottom of the page, then click Create New App.
 6. In the form that appears, complete each section using the below:
     - **Display Name** Enter the name of the Facebook app you just created. This _should_ pre-populate.
-    - **Valid OAuth Redirect URIs** Enter your _Primary Site_ URL, appended with `/actions/craftagram/default/auth` (i.e. https://scaramanga.agency/actions/craftagram/default/auth)
+    - **Valid OAuth Redirect URIs** Enter your _Primary Site_ URL, appended with `/actions/craftagram/default/auth` (i.e. https://www.yourwebsite.com/actions/craftagram/default/auth)
     - **Deauthorize Callback URL** and **Data Deletion Request Callback URL** Use the same URL as above.
     - You can ignore App Review, but **please note** that if you plan to publish this app, then you will need to turn on the `instagram_graph_user_profile` option, as this is required for creating a long access token.
     - Save Changes
@@ -54,7 +54,7 @@ Instagram tokens expire in 60 days, so you'll need to set up a cron job to keep 
 For example, this would run the token refresh every month
 
 ```
-/usr/bin/wget -q 0 0 1 * * https://scaramanga.agency/actions/craftagram/default/refresh-token >/dev/null 2>&1
+/usr/bin/wget -q 0 0 1 * * https://www.yourwebsite.com/actions/craftagram/default/refresh-token >/dev/null 2>&1
 ```
 
 If you fail to set up the cron, you can still refresh the token manaully, by going to the settings page, clicking the `Get Authorizaton URL` and following the steps outlined above.
