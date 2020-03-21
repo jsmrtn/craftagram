@@ -105,7 +105,7 @@ class Craftagram extends Plugin
     {
         parent::afterSaveSettings();
         Craft::$app->response
-            ->redirect(UrlHelper::url('settings/plugins/craftagram'))
+            ->redirect(UrlHelper::cpUrl('settings/plugins/craftagram'))
             ->send();
     }
 
