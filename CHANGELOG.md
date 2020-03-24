@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.0.3 - 2020-03-24
+### Fixed
+- Fix #1. Thanks @Saboteur777.
+
 ## 1.0.2 - 2020-03-11
 ### Fixed
 - Fail better if the `getInstagramFeed` service doesn't return any data
