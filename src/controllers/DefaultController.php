@@ -34,14 +34,12 @@ class DefaultController extends Controller
      */
     protected $allowAnonymous = ['refresh-token', 'auth', 'get-next-page'];
 
-    public function actionRefreshToken()
-    {
+    public function actionRefreshToken() {
         return Craftagram::$plugin->craftagramService->refreshToken();
     }
 
-    public function actionAuth()
-    {
-        $url = parse_url(Craft::$app->sites->primarySite->baseUrl . $_SERVER['REQUEST_URI']); 
+    public function actionAuth() {
+        $url = parse_url(alias(Craft::$app->sites->primarySite->baseUrl) . $_SERVER['REQUEST_URI']); 
         parse_str($url['query'], $params); 
         $code = $params['code'];
 
@@ -51,8 +49,7 @@ class DefaultController extends Controller
         }
     }
 
-    public function actionGetNextPage($url)
-    {
+    public function actionGetNextPage($url) {
         $url = parse_url($url);
         parse_str($url['query'], $params);
         $after = $params['after'];

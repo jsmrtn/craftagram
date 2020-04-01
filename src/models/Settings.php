@@ -38,8 +38,7 @@ class Settings extends Model
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['appId', 'appSecret'], 'required'],
             ['longAccessToken', 'string']

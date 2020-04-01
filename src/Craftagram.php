@@ -58,8 +58,7 @@ class Craftagram extends Plugin
     /**
      * @inheritdoc
      */
-    public function init()
-    {
+    public function init() {
         parent::init();
         self::$plugin = $this;
 
@@ -101,8 +100,7 @@ class Craftagram extends Plugin
         );
     }
 
-    public function afterSaveSettings()
-    {
+    public function afterSaveSettings() {
         parent::afterSaveSettings();
         Craft::$app->response
             ->redirect(UrlHelper::cpUrl('settings/plugins/craftagram'))

@@ -60,7 +60,7 @@
 
         $(document).on("click", "[data-js=auth-app]:not(.disabled)", function() {
             var $appId = $("#settings-appId").val();
-            var $url = "https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ craft.app.sites.primarySite.baseUrl }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code";
+            var $url = "https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ alias(craft.app.sites.primarySite.baseUrl) }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code";
 
             window.open($url);
         });

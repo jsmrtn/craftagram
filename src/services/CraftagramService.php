@@ -57,7 +57,7 @@ class CraftagramService extends Component
             "client_id" => Craftagram::$plugin->getSettings()->appId,
             "client_secret" => Craftagram::$plugin->getSettings()->appSecret,
             "grant_type" => "authorization_code",
-            "redirect_uri" => Craft::$app->sites->primarySite->baseUrl . "/actions/craftagram/default/auth",
+            "redirect_uri" => alias(Craft::$app->sites->primarySite->baseUrl) . "/actions/craftagram/default/auth",
             "code" => $code
         ];
 
@@ -98,7 +98,6 @@ class CraftagramService extends Component
             Craft::$app->getPlugins()->savePluginSettings($plugin, array("longAccessToken" => $token));
         }
         
-        //Craftagram::$plugin->setSettings(array("longAccessToken" => $token));
         return $token;
     }
 
@@ -130,6 +129,6 @@ class CraftagramService extends Component
         curl_close($ch);
 
         $res = json_decode($res);
-        return (array_key_exists("data", $res) ? $res : null);
+        return (isset($res["data"]) ? $res : null);
     }
 }
