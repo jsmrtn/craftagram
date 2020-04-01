@@ -39,7 +39,7 @@ class DefaultController extends Controller
     }
 
     public function actionAuth() {
-        $url = parse_url(alias(Craft::$app->sites->primarySite->baseUrl) . $_SERVER['REQUEST_URI']); 
+        $url = parse_url(Craft::getAlias(Craft::$app->sites->primarySite->baseUrl) . $_SERVER['REQUEST_URI']); 
         parse_str($url['query'], $params); 
         $code = $params['code'];
 
