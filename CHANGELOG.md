@@ -1,6 +1,6 @@
 # craftagram Changelog
 
-## 1.0.4 - 2020-03-24
+## 1.0.4 - 2020-04-01
 ### Fixed
 - Fix #3, #4. Thanks @darylknight.
 
