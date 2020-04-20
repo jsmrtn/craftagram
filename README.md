@@ -113,7 +113,7 @@ For example, you could do this to have a 'load more' button:
 {% js %}
     $("[data-js=load-more]").click(function(e) {
         e.preventDefault();
-        $.get("{{ alias(craft.app.sites.primarySite.baseUrl) }}/actions/craftagram/default/get-next-page?url=" + $(this).attr('href'), function(res) {
+        $.get("{{ parseEnv(craft.app.sites.primarySite.baseUrl) }}/actions/craftagram/default/get-next-page?url=" + $(this).attr('href'), function(res) {
             data = $.parseJSON(res);
 
             // For each, append the item to our wrapper

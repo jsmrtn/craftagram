@@ -57,7 +57,7 @@ class CraftagramService extends Component
             "client_id" => Craftagram::$plugin->getSettings()->appId,
             "client_secret" => Craftagram::$plugin->getSettings()->appSecret,
             "grant_type" => "authorization_code",
-            "redirect_uri" => Craft::getAlias(Craft::$app->sites->primarySite->baseUrl) . "/actions/craftagram/default/auth",
+            "redirect_uri" => Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl) . "/actions/craftagram/default/auth",
             "code" => $code
         ];
 
