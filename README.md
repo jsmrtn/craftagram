@@ -132,6 +132,10 @@ For example, you could do this to have a 'load more' button:
 
 Be concious you might be subject to rate limits from instagram, so if you're on a high traffic website you might get rate limited. You can read more about rate limits at instagram's [documentation](https://developers.facebook.com/docs/graph-api/overview/rate-limiting#instagram). 
 
+### Media Size
+
+The image returned from the API is an immutable size–it used to be you could use modifiers like `large` to get an image at a certain size, but no more. You will need to use a plugin that supports transforming images from remote URL's to resize the images returned from Instagram.
+
 
 ---
 Brought to you by [Scaramanga Agency](https://scaramanga.agency)
