@@ -1,5 +1,8 @@
 # craftagram Changelog
 
+## Unreleased
+- Tweak plugin icon
+
 ## 1.0.5 - 2020-04-20
 ### Fixed
 - Fix #3 but for both env and aliases. Thanks @bymayo.
