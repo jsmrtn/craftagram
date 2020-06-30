@@ -86,7 +86,10 @@ class Craftagram extends Plugin
             Plugins::EVENT_AFTER_INSTALL_PLUGIN,
             function (PluginEvent $event) {
                 if ($event->plugin === $this) {
-                    Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('settings/plugins/craftagram'))->send();
+                    $request = Craft::$app->getRequest();
+                    if ($request->isCpRequest) {
+                        Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('settings/plugins/craftagram'))->send();
+                    }
                 }
             }
         );
