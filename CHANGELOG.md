@@ -1,7 +1,13 @@
 # craftagram Changelog
 
+## 1.0.7 - 2020-07-01
+### Fixed
+- Fix release.
+
 ## 1.0.6 - 2020-06-30
+### Changed
 - Tweak plugin icon
+### Fixed
 - Fix #6. Thanks @JJimmyFlynn.
 
 ## 1.0.5 - 2020-04-20
