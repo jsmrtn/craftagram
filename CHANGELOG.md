@@ -7,6 +7,7 @@
 ## 1.0.6 - 2020-06-30
 ### Changed
 - Tweak plugin icon
+
 ### Fixed
 - Fix #6. Thanks @JJimmyFlynn.
 
