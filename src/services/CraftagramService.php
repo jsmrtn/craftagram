@@ -101,24 +101,18 @@ class CraftagramService extends Component
         return $token;
     }
 
-
+    
     public function getInstagramFeed($limit, $after) {
         $ch = curl_init();
 
+        $params = [
+            "fields" => "caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username",
+            "access_token" => Craftagram::$plugin->getSettings()->longAccessToken,
+            "limit" => $limit
+        ];
+
         if ($after != "") {
-            $params = [
-                "fields" => "caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username",
-                "access_token" => Craftagram::$plugin->getSettings()->longAccessToken,
-                "limit" => $limit,
-                "after" => $after
-            ];
-        } else {
-            $params = [
-                "fields" => "caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username",
-                "access_token" => Craftagram::$plugin->getSettings()->longAccessToken,
-                "limit" => $limit
-            ];
-    
+            $params["after"] = $after;
         }
 
         curl_setopt($ch, CURLOPT_URL,"https://graph.instagram.com/me/media?".http_build_query($params));
@@ -131,4 +125,42 @@ class CraftagramService extends Component
         $res = json_decode($res);
         return (isset($res->data) ? $res : null);
     }
+
+    public function getProfileMeta($username) {
+        try {
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL,"https://www.instagram.com/".$username."/?__a=1");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_VERBOSE, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            $res = curl_exec($ch);
+            curl_close($ch);
+
+            $res = json_decode($res);
+            
+            $meta = null;
+
+            if (isset($res->graphql)) {
+                if (isset($res->graphql->user)) {
+                    $meta = [
+                        "profile_picture" => $res->graphql->user->profile_pic_url,
+                        "profile_picture_hd" => $res->graphql->user->profile_pic_url_hd,
+                        "followers" => $res->graphql->user->edge_followed_by->count,
+                        "following" => $res->graphql->user->edge_follow->count,
+                    ];
+                }
+            }
+
+            return $meta;
+
+        } catch (Exception $e) {
+            LogToFile::error("Failed to get profile meta. This endpoint may no longer be available", "craftagram");
+            return null;
+        }
+    }
+
+    
 }

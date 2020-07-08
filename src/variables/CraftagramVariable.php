@@ -25,12 +25,11 @@ class CraftagramVariable
     // Public Methods
     // =========================================================================
 
-    /**
-     * @param null $optional
-     * @return string
-     */
-    public function getInstagramFeed($limit = 25, $url = "")
-    {
+    public function getInstagramFeed($limit = 25, $url = "") {
         return Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $url);
+    }
+
+    public function getProfileMeta($username) {
+        return Craftagram::$plugin->craftagramService->getProfileMeta($username);
     }
 }

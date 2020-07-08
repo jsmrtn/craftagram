@@ -128,6 +128,25 @@ For example, you could do this to have a 'load more' button:
 {% endjs %}
 ```
 
+### Profile Information
+
+> :warning: This uses the publically available instagram GraphQL API, accessible by adding *?__a=1* to an instagram URL. This may be deprecated or removed in the future.
+
+Used to grab some basic profile information not available natively in the Basic Display API. You can pass in any instagram profile, as this endpoint returns this information regardless of public or private status.
+
+```
+{% set craftagram = craft.craftagram.getProfileMeta("scaramanga_agency") %}
+```
+
+This variable has 4 available fields:
+
+| Field Name |
+| --- |
+| profile_picture |
+| profile_picture_hd |
+| followers |
+| following |
+
 ### Rate Limits
 
 Be concious you might be subject to rate limits from instagram, so if you're on a high traffic website you might get rate limited. You can read more about rate limits at instagram's [documentation](https://developers.facebook.com/docs/graph-api/overview/rate-limiting#instagram). 
