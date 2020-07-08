@@ -130,7 +130,8 @@ For example, you could do this to have a 'load more' button:
 
 ### Profile Information
 
-> :warning: This uses the publically available instagram GraphQL API, accessible by adding *?__a=1* to an instagram URL. This may be deprecated or removed in the future.
+> :warning: *Note*
+> This uses the publically available instagram GraphQL API, accessible by adding *?__a=1* to an instagram URL. This may be deprecated or removed in the future.
 
 Used to grab some basic profile information not available natively in the Basic Display API. You can pass in any instagram profile, as this endpoint returns this information regardless of public or private status.
 
