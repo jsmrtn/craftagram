@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.1.1 - 2020-07-10
+### Fix
+- Correctly remove trailing slash from `baseUrl` for `redirect_uri`.
+
 ## 1.1.0 - 2020-07-08
 ### Added
 - Add `getProfileMeta` variable to return followers, following, and profile picture.
