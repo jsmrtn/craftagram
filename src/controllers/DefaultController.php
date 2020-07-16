@@ -21,8 +21,7 @@ use craft\web\Controller;
  * @package   Craftagram
  * @since     1.0.0
  */
-class DefaultController extends Controller
-{
+class DefaultController extends Controller {
 
     // Protected Properties
     // =========================================================================
@@ -43,7 +42,7 @@ class DefaultController extends Controller
         parse_str($url['query'], $params); 
         $code = $params['code'];
 
-        if ($code != "") {
+        if ($code != '') {
             $getToken = Craftagram::$plugin->craftagramService->getShortAccessToken($code);
             return true;
         }

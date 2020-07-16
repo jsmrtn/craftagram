@@ -20,12 +20,11 @@ use Craft;
  * @package   Craftagram
  * @since     1.0.0
  */
-class CraftagramVariable
-{
+class CraftagramVariable {
     // Public Methods
     // =========================================================================
 
-    public function getInstagramFeed($limit = 25, $url = "") {
+    public function getInstagramFeed($limit = 25, $url = '') {
         return Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $url);
     }
 

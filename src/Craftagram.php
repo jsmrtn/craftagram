@@ -34,8 +34,7 @@ use yii\base\Event;
  *
  * @property  CraftagramServiceService $craftagramService
  */
-class Craftagram extends Plugin
-{
+class Craftagram extends Plugin {
     // Static Properties
     // =========================================================================
 
@@ -50,7 +49,7 @@ class Craftagram extends Plugin
     /**
      * @var string
      */
-    public $schemaVersion = '1.0.0';
+    public $schemaVersion = '1.1.0';
 
     // Public Methods
     // =========================================================================
@@ -93,6 +92,7 @@ class Craftagram extends Plugin
                 }
             }
         );
+
         Craft::info(
             Craft::t(
                 'craftagram',
@@ -126,10 +126,13 @@ class Craftagram extends Plugin
      */
     protected function settingsHtml(): string
     {
+        $longAccessToken = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting();
+
         return Craft::$app->view->renderTemplate(
             'craftagram/settings',
             [
-                'settings' => $this->getSettings()
+                'settings' => $this->getSettings(),
+                'longAccessToken' => $longAccessToken
             ]
         );
     }

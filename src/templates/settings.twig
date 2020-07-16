@@ -44,29 +44,30 @@
     label: 'Long Access Token',
     id: 'longAccessToken',
     name: 'longAccessToken',
-    value: settings['longAccessToken']})
+    value: longAccessToken,
+    disabled: 'true'})
 }}
 
 {% js %}
     $(document).ready(function() {
         
-        $(document).on("blur keyup", "#settings-appId", function() { 
+        $(document).on('blur keyup', '#settings-appId', function() { 
             if ($(this).val().length < 15) {
-                $("[data-js=auth-app]").attr("disabled", "disabled").removeClass("submit").addClass("disabled");
+                $('[data-js="auth-app"]').attr('disabled', 'disabled').removeClass('submit').addClass('disabled');
             } else {
-                $("[data-js=auth-app]").removeAttr("disabled").addClass("submit").removeClass("disabled");
+                $('[data-js="auth-app"]').removeAttr('disabled').addClass('submit').removeClass('disabled');
             }
         });
 
-        $(document).on("click", "[data-js=auth-app]:not(.disabled)", function() {
-            var $appId = $("#settings-appId").val();
-            var $url = "https://api.instagram.com/oauth/authorize?client_id="+$appId+"&redirect_uri={{ parseEnv(craft.app.sites.primarySite.baseUrl)|trim('/') }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code";
+        $(document).on('click', '[data-js="auth-app"]:not(.disabled)', function() {
+            var $appId = $('#settings-appId').val();
+            var $url = 'https://api.instagram.com/oauth/authorize?client_id='+$appId+'&redirect_uri={{ parseEnv(craft.app.sites.primarySite.baseUrl)|trim("/") }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code';
 
             window.open($url);
         });
 
-        if ($("#settings-appId").val().length >= 15 && $("#settings-appId").val() != "") {
-            $("[data-js=auth-button]").toggleClass("hidden");
+        if ($('#settings-appId').val().length >= 15 && $('#settings-appId').val() != '') {
+            $('[data-js="auth-button"]').toggleClass('hidden');
         }
     });
 {% endjs %}

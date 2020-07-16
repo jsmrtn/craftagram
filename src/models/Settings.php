@@ -30,7 +30,6 @@ class Settings extends Model
      */
     public $appId = '';
     public $appSecret = '';
-    public $longAccessToken = '';
 
     // Public Methods
     // =========================================================================
@@ -40,8 +39,7 @@ class Settings extends Model
      */
     public function rules() {
         return [
-            [['appId', 'appSecret'], 'required'],
-            ['longAccessToken', 'string']
+            [['appId', 'appSecret'], 'required']
         ];
     }
 }
