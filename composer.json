@@ -33,8 +33,6 @@
     "extra": {
         "name": "craftagram",
         "handle": "craftagram",
-        "hasCpSettings": true,
-        "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/scaramangagency/craftagram/master/CHANGELOG.md",
         "components": {
             "craftagramService": "scaramangagency\\craftagram\\services\\CraftagramService"
