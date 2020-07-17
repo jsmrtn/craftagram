@@ -51,6 +51,11 @@ class Craftagram extends Plugin {
      */
     public $schemaVersion = '1.1.0';
 
+    /**
+     * @var bool
+     */
+    public $hasCpSection = true;
+    
     // Public Methods
     // =========================================================================
 
