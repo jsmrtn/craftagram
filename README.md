@@ -4,7 +4,7 @@ Grab Instagram content through the Instagram Basic Display API
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0 or later.
+This plugin requires Craft CMS 3.1.0 or later.
 
 ## Installation
 
@@ -45,7 +45,9 @@ That's it! You won't need any extra setup now. What you will need to do is go to
 
 Go to the settings page for `craftagram` and enter your `App ID` and `App Secret` from the step above into the required boxes, and hit 'Save'. When the page refreshes, you'll see there's a new button `Authorise Craft`. Click that button to go to instagram to complete the authorisation procedure.
 
-Instagram may challenge you with a login screen, so handle that, then click 'Authorize'. It'll do some work, and then redirect you back to Craft with the Long Access Token field populated.
+> Tip: The App ID and App Secret settings can be set to environment variables. See Environmental Configuration in the Craft docs to learn more about that.
+
+Instagram may challenge you with a login screen, so handle that, then click 'Authorize'. You will be redirected back to Craft with the Long Access Token field populated.
 
 ### Keeping your token active
 
