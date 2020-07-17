@@ -71,8 +71,8 @@ class CraftagramService extends Component {
         $ch = curl_init();
         
         $params = [
-            'client_id' => Craftagram::$plugin->getSettings()->appId,
-            'client_secret' => Craftagram::$plugin->getSettings()->appSecret,
+            'client_id' => Craft::parseEnv(Craftagram::$plugin->getSettings()->appId),
+            'client_secret' => Craft::parseEnv(Craftagram::$plugin->getSettings()->appSecret),
             'grant_type' => 'authorization_code',
             'redirect_uri' => rtrim(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl), '/') . '/actions/craftagram/default/auth',
             'code' => $code

@@ -11,6 +11,7 @@
 namespace scaramangagency\craftagram\models;
 
 use scaramangagency\craftagram\Craftagram;
+use scaramangagency\craftagram\services\CraftagramService;
 
 use Craft;
 use craft\base\Model;
@@ -28,8 +29,9 @@ class Settings extends Model
     /**
      * @var string
      */
-    public $appId = '';
-    public $appSecret = '';
+    public $appId;
+    public $appSecret;
+    public $longAccessToken;
 
     // Public Methods
     // =========================================================================
@@ -39,7 +41,8 @@ class Settings extends Model
      */
     public function rules() {
         return [
-            [['appId', 'appSecret'], 'required']
+            [['appId', 'appSecret'], 'required'],
+            ['longAccessToken', 'string']
         ];
     }
 }
