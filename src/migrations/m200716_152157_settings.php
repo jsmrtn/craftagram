@@ -4,6 +4,8 @@ namespace scaramangagency\craftagram\migrations;
 
 use Craft;
 use craft\db\Migration;
+
+use scaramangagency\craftagram\Craftagram;
 use scaramangagency\craftagram\records\SettingsRecord as SettingsRecord;
 
 /**
@@ -30,9 +32,14 @@ class m200716_152157_settings extends Migration
                 ]
             );
 
-            $longAccessTokenRecord = new SettingsRecord();
-            $longAccessTokenRecord->setAttribute('longAccessToken', Craftagram::$plugin->getSettings()->longAccessToken);
-            $longAccessTokenRecord->save();
+            if (Craftagram::$plugin->getSettings()->longAccessToken !== null) {
+                $this->insert(
+                    '{{%craftagram_settings}}',
+                    [
+                        'longAccessToken' => Craftagram::$plugin->getSettings()->longAccessToken
+                    ]
+                );
+            }
         }
     }
 

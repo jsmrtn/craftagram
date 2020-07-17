@@ -69,7 +69,7 @@ class CraftagramService extends Component {
 
     public function getShortAccessToken($code) {
         $ch = curl_init();
-        
+
         $params = [
             'client_id' => Craft::parseEnv(Craftagram::$plugin->getSettings()->appId),
             'client_secret' => Craft::parseEnv(Craftagram::$plugin->getSettings()->appSecret),
@@ -86,6 +86,7 @@ class CraftagramService extends Component {
 
         $res = curl_exec($ch);
         curl_close($ch);
+
         $shortAccessToken = json_decode($res)->access_token;
 
         return Craftagram::$plugin->craftagramService->getLongAccessToken($shortAccessToken);
@@ -96,7 +97,7 @@ class CraftagramService extends Component {
         $ch = curl_init();
 
         $params = [
-            'client_secret' => Craftagram::$plugin->getSettings()->appSecret,
+            'client_secret' => Craft::parseEnv(Craftagram::$plugin->getSettings()->appSecret),
             'grant_type' => 'ig_exchange_token',
             'access_token' => $shortAccessToken
         ];
@@ -107,6 +108,7 @@ class CraftagramService extends Component {
 
         $res = curl_exec($ch);
         curl_close($ch);
+
         $token = json_decode($res)->access_token;
 
         $plugin = Craft::$app->getPlugins()->getPlugin('craftagram');

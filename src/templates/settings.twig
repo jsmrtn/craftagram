@@ -28,6 +28,7 @@
     required: 'required',
     value: settings['appId'],
     suggestions: craft.cp.getEnvSuggestions(),
+    suggestEnvVars: true,
     errors: settings.getErrors('appId')})
 }}
 
@@ -39,6 +40,7 @@
     required: 'required',
     value: settings['appSecret'],
     suggestions: craft.cp.getEnvSuggestions(),
+    suggestEnvVars: true,
     errors: settings.getErrors('appSecret')})
 }}
 
@@ -63,9 +65,7 @@
 
         $(document).on('click', '[data-js="auth-app"]:not(.disabled)', function() {
             var $appId = $('#settings-appId').val();
-            var $url = 'https://api.instagram.com/oauth/authorize?client_id='+$appId+'&redirect_uri={{ parseEnv(craft.app.sites.primarySite.baseUrl)|trim("/") }}/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code';
-
-            window.open($url);
+            window.location.href = '/actions/craftagram/default/handle-auth?client_id=' + $appId;
         });
 
         if ($('#settings-appId').val().length >= 15 && $('#settings-appId').val() != '') {
