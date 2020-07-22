@@ -1,5 +1,14 @@
 # craftagram Changelog
 
+## 1.2.0 - 2020-07-22
+### Added
+- App ID and App Secret can now be added as environment variables.
+- craftagram is available as a Control Panel section to allow authorisations if `allowAdminChanges` is set to false
+- Long-access token is now saved into the database to prevent creating issues with `project.yaml` file
+
+### Changed
+- Logic changes to better handle of authorisation hand-off.
+
 ## 1.1.1 - 2020-07-10
 ### Fix
 - Correctly remove trailing slash from `baseUrl` for `redirect_uri`.
