@@ -56,6 +56,11 @@ class Craftagram extends Plugin {
      */
     public $hasCpSection = true;
     
+    /**
+     * @var bool
+     */
+    public $hasCpSettings = true;
+
     // Public Methods
     // =========================================================================
 
@@ -76,6 +81,17 @@ class Craftagram extends Plugin {
         );
 
         Event::on(
+            UrlManager::class, 
+            UrlManager::EVENT_REGISTER_CP_URL_RULES,
+            function(RegisterUrlRulesEvent $event) {
+                $event->rules = array_merge($event->rules, [
+                    'craftagram/settings' => 'craftagram/settings/index'
+                ]);
+            }
+        );
+
+
+        Event::on(
             CraftVariable::class,
             CraftVariable::EVENT_INIT,
             function (Event $event) {
@@ -92,7 +108,7 @@ class Craftagram extends Plugin {
                 if ($event->plugin === $this) {
                     $request = Craft::$app->getRequest();
                     if ($request->isCpRequest) {
-                        Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('settings/plugins/craftagram'))->send();
+                        Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('craftagram/settings'))->send();
                     }
                 }
             }
@@ -111,8 +127,12 @@ class Craftagram extends Plugin {
     public function afterSaveSettings() {
         parent::afterSaveSettings();
         Craft::$app->response
-            ->redirect(UrlHelper::cpUrl('settings/plugins/craftagram'))
+            ->redirect(UrlHelper::cpUrl('craftagram/settings'))
             ->send();
+    }
+
+    public function getSettingsResponse() {
+        Craft::$app->controller->redirect(UrlHelper::cpUrl('craftagram/settings'));
     }
 
     // Protected Methods
@@ -121,24 +141,14 @@ class Craftagram extends Plugin {
     /**
      * @inheritdoc
      */
-    protected function createSettingsModel()
-    {
+    protected function createSettingsModel() {
         return new Settings();
     }
 
     /**
      * @inheritdoc
      */
-    protected function settingsHtml(): string
-    {
-        $longAccessToken = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting();
-
-        return Craft::$app->view->renderTemplate(
-            'craftagram/settings',
-            [
-                'settings' => $this->getSettings(),
-                'longAccessToken' => $longAccessToken
-            ]
-        );
+    protected function settingsHtml(): string {
+        return Craft::$app->view->renderTemplate('craftagram/settings');
     }
 }

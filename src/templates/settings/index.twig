@@ -1,0 +1,88 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * craftagram plugin for Craft CMS 3.x
+ *
+ * craftagram Settings.twig
+ *
+ * @author    Scaramanga Agency
+ * @copyright Copyright (c) 2020 Scaramanga Agency
+ * @link      https://scaramanga.agency
+ * @package   Craftagram
+ * @since     1.0.0
+ */
+#}
+
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+{% set title = 'craftagram' %}
+
+{% set content %}
+    <div class="hidden" data-js="auth-button">
+        <a data-js="auth-app" class="btn submit">Authorise Craft</a>
+        <hr />
+    </div>
+
+    <form method="post">
+
+        {{ csrfInput() }}
+        <input type="hidden" name="action" value="craftagram/settings/save-plugin-settings">
+
+        {% namespace "settings" %}
+            {{ forms.autosuggestField({
+                label: 'Instagram App ID',
+                instructions: 'Enter your App ID here. This is the Instagram App ID and **not** the Facebook App ID. If you\'re unsure, check the README.',
+                id: 'appId',
+                name: 'appId',
+                required: 'required',
+                value: settings['appId'],
+                suggestions: craft.cp.getEnvSuggestions(),
+                suggestEnvVars: true,
+                errors: settings.getErrors('appId')})
+            }}
+
+            {{ forms.autosuggestField({
+                label: 'Instagram App Secret',
+                instructions: 'Enter your App Secret here',
+                id: 'appSecret',
+                name: 'appSecret',
+                required: 'required',
+                value: settings['appSecret'],
+                suggestions: craft.cp.getEnvSuggestions(),
+                suggestEnvVars: true,
+                errors: settings.getErrors('appSecret')})
+            }}
+
+            {{ forms.textField({
+                label: 'Long Access Token',
+                id: 'longAccessToken',
+                name: 'longAccessToken',
+                value: longAccessToken,
+                disabled: 'true'})
+            }}
+        {% endnamespace %}
+
+        <input type="submit" class="submit btn" value="{{ 'Save'|t }}">
+    </form>
+{% endset %}
+{% js %}
+    $(document).ready(function() {
+        
+        $(document).on('blur keyup', '#settings-appId', function() { 
+            if ($(this).val().length < 15) {
+                $('[data-js="auth-app"]').attr('disabled', 'disabled').removeClass('submit').addClass('disabled');
+            } else {
+                $('[data-js="auth-app"]').removeAttr('disabled').addClass('submit').removeClass('disabled');
+            }
+        });
+
+        $(document).on('click', '[data-js="auth-app"]:not(.disabled)', function() {
+            var $appId = $('#settings-appId').val();
+            window.location.href = '/actions/craftagram/default/handle-auth?client_id=' + $appId;
+        });
+
+        if ($('#settings-appId').val().length >= 15 && $('#settings-appId').val() != '') {
+            $('[data-js="auth-button"]').toggleClass('hidden');
+        }
+    });
+{% endjs %}
