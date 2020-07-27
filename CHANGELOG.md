@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.2.1 - 2020-07-27
+### Fixed
+- Fix redirect URL from auth function to prevent errors if `allowAdminChanges` is set to false
+
 ## 1.2.0 - 2020-07-22
 ### Added
 - App ID and App Secret can now be added as environment variables.
