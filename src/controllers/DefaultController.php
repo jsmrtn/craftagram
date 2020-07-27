@@ -53,7 +53,7 @@ class DefaultController extends Controller {
 
         if ($code != '') {
             $getToken = Craftagram::$plugin->craftagramService->getShortAccessToken($code);
-            Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('settings/plugins/craftagram'))->send();
+            Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('craftagram/settings'))->send();
             exit;
         }
     }
