@@ -153,7 +153,7 @@ This variable has 4 available fields:
 
 ### Rate Limits
 
-Be concious you might be subject to rate limits from instagram, so if you're on a high traffic website you might get rate limited. You can read more about rate limits at instagram's [documentation](https://developers.facebook.com/docs/graph-api/overview/rate-limiting#instagram). 
+Be conscious you might be subject to rate limits from instagram, so if you're on a high traffic website you might get rate limited. You can read more about rate limits at instagram's [documentation](https://developers.facebook.com/docs/graph-api/overview/rate-limiting#instagram). 
 
 ### Media Size
 
