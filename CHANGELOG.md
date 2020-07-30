@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.2.2 - 2020-07-30
+### Fixed
+- Change minimum CraftCMS requirement
+
 ## 1.2.1 - 2020-07-27
 ### Fixed
 - Fix redirect URL from auth function to prevent errors if `allowAdminChanges` is set to false
