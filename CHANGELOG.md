@@ -1,6 +1,6 @@
 # craftagram Changelog
 
-## 1.2.4 - 2020-07-30
+## 1.2.4 - 2020-08-04
 ### Fixed
 - Allow Long Access Token to be edited
 
