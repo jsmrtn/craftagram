@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.2.4 - 2020-07-30
+### Fixed
+- Allow Long Access Token to be edited
+
 ## 1.2.3 - 2020-07-30
 ### Fixed
 - Change minimum CraftCMS requirement
