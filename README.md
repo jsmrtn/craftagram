@@ -33,7 +33,7 @@ This is just a shortened version of what is available at the [official docs](htt
     - **Display Name** Enter the name of the Facebook app you just created. This _should_ pre-populate.
     - **Valid OAuth Redirect URIs** Enter your _Primary Site_ URL, appended with `/actions/craftagram/default/auth` (i.e. https://www.yourwebsite.com/actions/craftagram/default/auth)
     - **Deauthorize Callback URL** and **Data Deletion Request Callback URL** Use the same URL as above.
-    - You can ignore App Review, but **please note** that if you plan to publish this app, then you will need to turn on the `instagram_graph_user_profile` option, as this is required for creating a long access token.
+    - Ignore **App Review**, as we do not recommend that you publish your app. You can use the app indefinitely in development mode.
     - Save Changes
 7. Navigate to Roles > Roles and scroll down to the Instagram Testers section. Click Add Instagram Testers and enter the name of the Instagram account you're linking up.
 8. Open a new web browser and go to www.instagram.com and sign into your Instagram account that you just invited. Navigate to (Profile Icon) > Edit Profile > Apps and Websites > Tester Invites and accept the invitation.
