@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.2.5 - 2020-09-14
+### Fixed
+- Remove limit hiding button, as env var can be any length
+
 ## 1.2.4 - 2020-08-04
 ### Changed
 - Allow Long Access Token to be edited

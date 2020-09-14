@@ -68,7 +68,7 @@
     $(document).ready(function() {
         
         $(document).on('blur keyup', '#settings-appId', function() { 
-            if ($(this).val().length < 15) {
+            if ($(this).val().length < 1) {
                 $('[data-js="auth-app"]').attr('disabled', 'disabled').removeClass('submit').addClass('disabled');
             } else {
                 $('[data-js="auth-app"]').removeAttr('disabled').addClass('submit').removeClass('disabled');
@@ -80,7 +80,7 @@
             window.location.href = '/actions/craftagram/default/handle-auth?client_id=' + $appId;
         });
 
-        if ($('#settings-appId').val().length >= 15 && $('#settings-appId').val() != '') {
+        if ($('#settings-appId').val() != '') {
             $('[data-js="auth-button"]').toggleClass('hidden');
         }
     });
