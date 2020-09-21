@@ -24,7 +24,7 @@ To install the plugin, follow these instructions.
 
 This is just a shortened version of what is available at the [official docs](https://developers.facebook.com/docs/instagram-basic-display-api/getting-started), so if you get stuck, check out the official docs.
 
-1. Go to https://developers.facebook.com, click My Apps, and create a new app.
+1. Go to https://developers.facebook.com, click My Apps, and create a new app. Select _For Everything Else_ from the modal, the other two options will not show the correct options in Step 5, as business integrations force the main Graph API.
 2. Once you have created the app and are in the App Dashboard, navigate to Settings > Basic, scroll the bottom of page, and click Add Platform.
 3. Choose Website, add your website’s URL, and save your changes.
 4. Click Products, locate the Instagram product, and click Set Up to add it to your app.
