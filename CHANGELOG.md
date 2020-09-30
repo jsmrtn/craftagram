@@ -1,7 +1,7 @@
 # craftagram Changelog
 
 ## 1.2.6 - 2020-09-30
-### Added
+### Added
 - Output verbose error messaging into log if no data is returned (#24)
 ### Fixed
 - Set column type to `text` for `longAccessToken` for migrated installs (#28)
