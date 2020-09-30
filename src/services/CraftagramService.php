@@ -155,6 +155,11 @@ class CraftagramService extends Component {
         curl_close($ch);
 
         $res = json_decode($res);
+
+        if (!isset($res->data)) {
+            LogToFile::error('Failed to get data. Response from Instagram: ' . json_encode($res), 'craftagram');
+        }
+        
         return (isset($res->data) ? $res : null);
     }
 
