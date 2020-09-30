@@ -1,5 +1,11 @@
 # craftagram Changelog
 
+## 1.2.6 - 2020-09-14
+### Added
+- Output verbose error messaging into log if no data is returned (#24)
+### Fixed
+- Set column type to `text` for `longAccessToken` for migrated installs (#28)
+
 ## 1.2.5 - 2020-09-14
 ### Fixed
 - Remove limit hiding button, as env var can be any length

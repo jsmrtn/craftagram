@@ -2,7 +2,7 @@
     "name": "scaramangagency/craftagram",
     "description": "Grab Instagram content through the Instagram Basic Display API",
     "type": "craft-plugin",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "keywords": [
         "craft",
         "cms",
