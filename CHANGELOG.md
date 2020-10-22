@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.3.0 - 2020-10-22
+### Added
+- Add console action for refreshing tokens
+
 ## 1.2.6 - 2020-09-30
 ### Added
 - Output verbose error messaging into log if no data is returned (#24)
