@@ -77,7 +77,7 @@
 
         $(document).on('click', '[data-js="auth-app"]:not(.disabled)', function() {
             var $appId = $('#settings-appId').val();
-            window.location.href = '{{ siteUrl }}actions/craftagram/default/handle-auth?client_id=' + $appId;
+            window.location.href = '{{ siteUrl }}/actions/craftagram/default/handle-auth?client_id=' + $appId;
         });
 
         if ($('#settings-appId').val() != '') {
