@@ -38,11 +38,11 @@ class DefaultController extends Controller {
         return Craftagram::$plugin->craftagramService->refreshToken();
     }
 
-    public function actionHandleAuth($client_id) {
+    public function actionHandleAuth($site_id, $client_id) {
         $url = rtrim(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl), '/'); 
         $appId = Craft::parseEnv($client_id);
 
-        Craft::$app->getResponse()->redirect('https://api.instagram.com/oauth/authorize?client_id='.$appId.'&redirect_uri='.$url.'/actions/craftagram/default/auth&scope=user_profile,user_media&response_type=code')->send();
+        Craft::$app->getResponse()->redirect('https://api.instagram.com/oauth/authorize?client_id='.$appId.'&scope=user_profile,user_media&response_type=code&redirect_uri='.$url.'/actions/craftagram/default/auth&state='.$site_id)->send();
         exit;
     }
 
@@ -50,20 +50,21 @@ class DefaultController extends Controller {
         $url = parse_url(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl) . $_SERVER['REQUEST_URI']); 
         parse_str($url['query'], $params); 
         $code = $params['code'];
+        $siteId = $params['state'];
 
         if ($code != '') {
-            $getToken = Craftagram::$plugin->craftagramService->getShortAccessToken($code);
-            Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('craftagram/settings'))->send();
+            $getToken = Craftagram::$plugin->craftagramService->getShortAccessToken($code, $siteId);
+            Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('craftagram/settings/' . $siteId))->send();
             exit;
         }
     }
 
-    public function actionGetNextPage($url) {
+    public function actionGetNextPage($url, $siteId) {
         $url = parse_url($url);
         parse_str($url['query'], $params);
         $after = $params['after'];
         $limit = $params['limit'];
 
-        return json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $after));
+        return json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $after));
     }
 }

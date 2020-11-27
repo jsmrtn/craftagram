@@ -18,10 +18,10 @@ use Craft;
 use craft\base\Plugin;
 use craft\services\Plugins;
 use craft\events\PluginEvent;
-use craft\web\UrlManager;
-use craft\helpers\UrlHelper;
-use craft\web\twig\variables\CraftVariable;
 use craft\events\RegisterUrlRulesEvent;
+use craft\web\UrlManager;
+use craft\web\twig\variables\CraftVariable;
+use craft\helpers\UrlHelper;
 
 use yii\base\Event;
 
@@ -49,7 +49,7 @@ class Craftagram extends Plugin {
     /**
      * @var string
      */
-    public $schemaVersion = '1.2.0';
+    public $schemaVersion = '1.4.0';
 
     /**
      * @var bool
@@ -85,7 +85,8 @@ class Craftagram extends Plugin {
             UrlManager::EVENT_REGISTER_CP_URL_RULES,
             function(RegisterUrlRulesEvent $event) {
                 $event->rules = array_merge($event->rules, [
-                    'craftagram/settings' => 'craftagram/settings/index'
+                    'craftagram/settings' => 'craftagram/settings/index',
+                    'craftagram/settings/<siteId>' => 'craftagram/settings/index'
                 ]);
             }
         );

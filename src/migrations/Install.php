@@ -71,11 +71,23 @@ class Install extends Migration {
                 '{{%craftagram_settings}}',
                 [
                     'id'                => $this->primaryKey(),
+                    'appId'             => $this->text(),
+                    'appSecret'         => $this->text(),
                     'longAccessToken'   => $this->text(),
+                    'craftagramSiteId'  => $this->integer()->null(),
                     'dateCreated'       => $this->dateTime()->notNull(),
                     'dateUpdated'       => $this->dateTime()->notNull(),
                     'uid'               => $this->uid()
                 ]
+            );
+            $this->addForeignKey(
+                $this->db->getForeignKeyName('{{%craftagram_settings}}', 'craftagramSiteId'),
+                '{{%craftagram_settings}}',
+                'craftagramSiteId',
+                '{{%sites}}',
+                'id',
+                'CASCADE',
+                'CASCADE'
             );
         }
 
