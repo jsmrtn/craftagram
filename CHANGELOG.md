@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.3.1 - 2020-11-27
+### Added
+- Allow Craft to run from sub-directory (#32)
+
 ## 1.3.0 - 2020-10-22
 ### Added
 - Add console action for refreshing tokens
