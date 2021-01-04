@@ -1,6 +1,6 @@
 # craftagram Changelog
 
-## Unreleased
+## 1.4.0 - 2021-01-04
 ### Added
 - Allow multi-site authentications (#30)
 
