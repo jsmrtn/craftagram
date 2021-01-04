@@ -25,8 +25,13 @@ use putyourlightson\logtofile\LogToFile;
  */
 class CraftagramService extends Component {
 
-    public function getLongAccessTokenSetting() {
-        $longAccessTokenRecord = SettingsRecord::findOne(1); 
+    public function getLongAccessTokenSetting($siteId) {
+
+        $params = [
+            'craftagramSiteId' => $siteId
+        ];
+
+        $longAccessTokenRecord = SettingsRecord::findOne($params); 
 
         if (!$longAccessTokenRecord) {
             LogToFile::info('An access token has not been obtained from Instagram', 'craftagram');
@@ -37,42 +42,53 @@ class CraftagramService extends Component {
     }
 
     public function refreshToken() {
-        $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting();
+        $siteIds = Craft::$app->sites->allSiteIds();
 
-        if (!$longAccessTokenRecord) {
-            return false;
-        }
-
-        $ch = curl_init();
+        
+        foreach ($siteIds as $siteId) {
+            $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
+    
+            if (!$longAccessTokenRecord) {
+                return false;
+            }
+    
+            $ch = curl_init();
             
-        $params = [
-            'access_token' => $longAccessTokenRecord,
-            'grant_type' => 'ig_refresh_token'
-        ];
-
-        curl_setopt($ch, CURLOPT_URL,'https://graph.instagram.com/refresh_access_token?'.http_build_query($params));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-        $res = curl_exec($ch);
-        curl_close($ch);
-
-        try {
-            $expires = json_decode($res)->expires_in;
-            LogToFile::info('Successfully refreshed authentication token. Expires in ' . $expires, 'craftagram');
-        } catch (Exception $e) {
-            LogToFile::error('Failed to refresh authentication token. Error: ' . $res, 'craftagram');
+            $params = [
+                'access_token' => $longAccessTokenRecord,
+                'grant_type' => 'ig_refresh_token'
+            ];
+    
+            curl_setopt($ch, CURLOPT_URL,'https://graph.instagram.com/refresh_access_token?'.http_build_query($params));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    
+            $res = curl_exec($ch);
+            curl_close($ch);
+    
+            try {
+                $expires = json_decode($res)->expires_in;
+                LogToFile::info('Successfully refreshed authentication token. Expires in ' . $expires, 'craftagram');
+            } catch (Exception $e) {
+                LogToFile::error('Failed to refresh authentication token. Error: ' . $res, 'craftagram');
+            }
+    
+            return true;
         }
-
-        return true;
     }
 
-    public function getShortAccessToken($code) {
+    public function getShortAccessToken($code, $siteId) {
         $ch = curl_init();
 
+        $getSettings = [
+            'craftagramSiteId' => $siteId
+        ];
+
+        $longAccessTokenRecord = SettingsRecord::findOne($getSettings);
+
         $params = [
-            'client_id' => Craft::parseEnv(Craftagram::$plugin->getSettings()->appId),
-            'client_secret' => Craft::parseEnv(Craftagram::$plugin->getSettings()->appSecret),
+            'client_id' => Craft::parseEnv($longAccessTokenRecord->appId),
+            'client_secret' => Craft::parseEnv($longAccessTokenRecord->appSecret),
             'grant_type' => 'authorization_code',
             'redirect_uri' => rtrim(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl), '/') . '/actions/craftagram/default/auth',
             'code' => $code
@@ -89,15 +105,15 @@ class CraftagramService extends Component {
 
         $shortAccessToken = json_decode($res)->access_token;
 
-        return Craftagram::$plugin->craftagramService->getLongAccessToken($shortAccessToken);
+        return Craftagram::$plugin->craftagramService->getLongAccessToken($shortAccessToken, $siteId, $longAccessTokenRecord->appSecret);
     }
 
 
-    public function getLongAccessToken($shortAccessToken) {
+    public function getLongAccessToken($shortAccessToken, $siteId, $secret) {
         $ch = curl_init();
 
         $params = [
-            'client_secret' => Craft::parseEnv(Craftagram::$plugin->getSettings()->appSecret),
+            'client_secret' => Craft::parseEnv($secret),
             'grant_type' => 'ig_exchange_token',
             'access_token' => $shortAccessToken
         ];
@@ -114,11 +130,11 @@ class CraftagramService extends Component {
         $plugin = Craft::$app->getPlugins()->getPlugin('craftagram');
 
         if ($plugin !== null) {
-            $longAccessTokenRecord = SettingsRecord::findOne(1);
-            
-            if (!$longAccessTokenRecord) {
-                $longAccessTokenRecord = new SettingsRecord();
-            }
+            $params = [
+                'craftagramSiteId' => $siteId
+            ];
+
+            $longAccessTokenRecord = SettingsRecord::findOne($params);
 
             $longAccessTokenRecord->setAttribute('longAccessToken', $token);
             $longAccessTokenRecord->save();
@@ -128,8 +144,13 @@ class CraftagramService extends Component {
     }
 
     
-    public function getInstagramFeed($limit, $after) {
-        $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting();
+    public function getInstagramFeed($limit, $siteId, $after) {
+        // If the template hasnt been updated to put in a site ID, just grab the default row we already have
+        if ($siteId == 0) {
+            $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting(1);
+        } else {
+            $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
+        }
 
         if (!$longAccessTokenRecord) {
             return false;
@@ -143,6 +164,7 @@ class CraftagramService extends Component {
             'limit' => $limit
         ];
 
+        
         if ($after != '') {
             $params['after'] = $after;
         }

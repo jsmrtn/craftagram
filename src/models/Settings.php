@@ -32,6 +32,7 @@ class Settings extends Model
     public $appId;
     public $appSecret;
     public $longAccessToken;
+    public $craftagramSiteId;
 
     // Public Methods
     // =========================================================================
@@ -42,7 +43,8 @@ class Settings extends Model
     public function rules() {
         return [
             [['appId', 'appSecret'], 'required'],
-            ['longAccessToken', 'string']
+            ['longAccessToken', 'string'],
+            ['craftagramSiteId', 'integer']
         ];
     }
 }

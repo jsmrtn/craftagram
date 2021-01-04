@@ -17,6 +17,29 @@
 {% import "_includes/forms" as forms %}
 {% set title = 'craftagram' %}
 
+{% block header %}
+    {{ block('pageTitle') }}
+    {{ block('languageMenu') }}
+{% endblock %}
+
+{% block languageMenu %}
+    <div id="sites-btn" class="btn menubtn" data-icon="world">{{ craft.app.sites.getSiteById(siteId).name }}</div>
+
+    <div class="menu">
+        {% set siteIds = craft.app.sites.allSiteIds() %}
+        <ul class="padded">
+            {% for id in siteIds %}
+                {% set site = craft.app.sites.getSiteById(id) %}
+                <li>
+                    <a {% if id == siteId %}class="sel"{% else %}href="{{ cpUrl() }}/craftagram/settings/{{ site.id }}"{% endif %}>
+                        {{ site.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
 {% set content %}
     <div class="hidden" data-js="auth-button">
         <a data-js="auth-app" class="btn submit">Authorise Craft</a>
@@ -57,7 +80,14 @@
                 label: 'Long Access Token',
                 id: 'longAccessToken',
                 name: 'longAccessToken',
-                value: longAccessToken })
+                value: settings['longAccessToken'] })
+            }}
+
+            {{
+                forms.hidden({
+                    name: 'siteId',
+                    value: siteId
+                })
             }}
         {% endnamespace %}
 
@@ -77,7 +107,7 @@
 
         $(document).on('click', '[data-js="auth-app"]:not(.disabled)', function() {
             var $appId = $('#settings-appId').val();
-            window.location.href = '{{ siteUrl }}/actions/craftagram/default/handle-auth?client_id=' + $appId;
+            window.location.href = '{{ siteUrl }}/actions/craftagram/default/handle-auth?site_id={{ settings["craftagramSiteId"] }}&client_id=' + $appId;
         });
 
         if ($('#settings-appId').val() != '') {

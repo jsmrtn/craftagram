@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## Unreleased
+### Added
+- Allow multi-site authentications (#30)
+
 ## 1.3.1 - 2020-11-27
 ### Fixed
 - Allow Craft to run from sub-directory (#32)

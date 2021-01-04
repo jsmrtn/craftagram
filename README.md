@@ -27,7 +27,7 @@ This is just a shortened version of what is available at the [official docs](htt
 1. Go to https://developers.facebook.com, click My Apps, and create a new app. Select _For Everything Else_ from the modal, the other two options will not show the correct options in Step 5, as business integrations force the main Graph API.
 2. Once you have created the app and are in the App Dashboard, navigate to Settings > Basic, scroll the bottom of page, and click Add Platform.
 3. Choose Website, add your website’s URL, and save your changes.
-4. Click Products, locate the Instagram product, and click Set Up to add it to your app.
+4. Click Products, locate the Instagram Basic Display product, and click Set Up to add it to your app.
 5. Click Basic Display under Products > Instagram in the sidebar, scroll to the bottom of the page, then click Create New App.
 6. In the form that appears, complete each section using the below:
     - **Display Name** Enter the name of the Facebook app you just created. This _should_ pre-populate.
@@ -75,11 +75,16 @@ Using the plugin is pretty simple
 {% endif %}
 ```
 
-You can pass one parameter to the variable, `limit`. The default limit from instagram is 25.
+There are two parameters available to the variable, `limit` and `siteId`. The default limit from instagram is 25.
 
 ```
-{% set craftagram = craft.craftagram.getInstagramFeed(10) %}
+{% set craftagram = craft.craftagram.getInstagramFeed(25, currentSite.id) %}
 ```
+
+| Field Name | Description |
+| --- | --- |
+| limit | The default limit from instagram is 25 |
+| siteId | The current site's ID. If you only have one site on your install you can leave this blank, otherwise pass the `siteId` for the site you have added the authorisation to. You can hard-code the site ID if you have only set up authorisation on one of your multi-site installs, otherwise pass the current `siteId` dynamically |
 
 The options that you get are [all of the options](https://developers.facebook.com/docs/instagram-basic-display-api/reference/media#fields) provided from the API endpoint. For brevity, they are:
 
@@ -96,7 +101,7 @@ The options that you get are [all of the options](https://developers.facebook.co
 
 ### Pagination
 
-If you're limiting, you'll need to paginate. You can get the next URL using `{{ craftagram.paging.next|url_encode }}`. **You will need** to use the `url_encode` filter, otherwise the pagination will fail.
+If you're limiting, you'll need to paginate. You can get the next URL using `{{ craftagram.paging.next|url_encode }}`. **You will need** to use the `url_encode` filter, otherwise the pagination will fail. Remember to pass the correct `siteId` for the active site, if appropriate.
 
 For example, you could do this to have a 'load more' button:
 ```
@@ -115,7 +120,7 @@ For example, you could do this to have a 'load more' button:
 {% js %}
     $("[data-js=load-more]").click(function(e) {
         e.preventDefault();
-        $.get("{{ parseEnv(craft.app.sites.primarySite.baseUrl) }}/actions/craftagram/default/get-next-page?url=" + $(this).attr('href'), function(res) {
+        $.get("{{ parseEnv(craft.app.sites.primarySite.baseUrl) }}/actions/craftagram/default/get-next-page?siteId={{ currentSite.id }}&url=" + $(this).attr('href'), function(res) {
             data = $.parseJSON(res);
 
             // For each, append the item to our wrapper
