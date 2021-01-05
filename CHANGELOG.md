@@ -1,7 +1,7 @@
 # craftagram Changelog
 
 ## 1.4.1 - 2021-01-05
-### Added
+### Fixed
 - Fix migration
 
 ## 1.4.0 - 2021-01-04
