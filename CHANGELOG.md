@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.4.2 - 2021-01-05
+### Fixed
+- Fix refresh token endpoint
+
 ## 1.4.1 - 2021-01-05
 ### Fixed
 - Fix migration

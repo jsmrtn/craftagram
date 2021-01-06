@@ -42,7 +42,7 @@ class CraftagramService extends Component {
     }
 
     public function refreshToken() {
-        $siteIds = Craft::$app->sites->allSiteIds();
+        $siteIds = Craft::$app->sites->getAllSiteIds();
 
         
         foreach ($siteIds as $siteId) {

@@ -61,6 +61,8 @@ For example, this would run the token refresh every month
 
 If you fail to set up the cron, you can still refresh the token manaully, by going to the settings page, clicking the `Authorise Craft` and following the steps outlined above.
 
+> :warning: You cannot refresh access tokens for private Instagram accounts, so ensure the account used in your tester invite above is public
+
 ## Using craftagram
 
 Using the plugin is pretty simple
