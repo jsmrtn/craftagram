@@ -1,7 +1,7 @@
 # craftagram Changelog
 
 ## 1.4.3 - 2021-01-12
-### Added
+### Added
 - Add API endpoint for headless installations (#36)
 - Add preview of feed to settings page
 
