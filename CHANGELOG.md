@@ -1,5 +1,16 @@
 # craftagram Changelog
 
+## 1.4.3 - 2021-01-12
+### Added
+- Add API endpoint for headless installations (#36)
+- Add preview of feed to settings page
+
+### Fixed
+- Fix pagination action, as it previously assumed that the default site had an ID of `1`
+
+### Changed
+- Update recommendations for pagination to use the `paginate->cursors->after` string, rather than needing to pass the entire `next` url
+
 ## 1.4.2 - 2021-01-06
 ### Fixed
 - Fix refresh token endpoint
