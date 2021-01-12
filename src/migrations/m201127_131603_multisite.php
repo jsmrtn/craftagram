@@ -23,7 +23,7 @@ class m201127_131603_multisite extends Migration
             $this->addColumn(
                 '{{%craftagram_settings}}',
                 'craftagramSiteId',
-                'integer AFTER longAccessToken',
+                'integer AFTER longAccessToken'
             );
             $this->addColumn(
                 '{{%craftagram_settings}}',

@@ -1,6 +1,14 @@
 # craftagram Changelog
 
-## Unreleased
+## 1.4.2 - 2021-01-06
+### Fixed
+- Fix refresh token endpoint
+
+## 1.4.1 - 2021-01-05
+### Fixed
+- Fix migration
+
+## 1.4.0 - 2021-01-04
 ### Added
 - Allow multi-site authentications (#30)
 
