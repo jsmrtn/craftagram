@@ -16,6 +16,21 @@
 {% import "_includes/forms" as forms %}
 {% set title = 'craftagram' %}
 
+{% css %}
+    .insta-preview-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 0 -4px 8px;
+    }
+    .insta-preview {
+        width: 150px;
+        padding: 4px;
+        margin: 4px;
+        border: 1px solid #efefef;
+    }
+{% endcss %}
+
 {% block header %}
     {{ block('pageTitle') }}
     {{ block('languageMenu') }}
@@ -92,7 +107,24 @@
 
         <input type="submit" class="submit btn" value="{{ 'Save'|t }}">
     </form>
+
+    {% set craftagram = craft.craftagram.getInstagramFeed(2, siteId) %}
+    {% if craftagram|length %}
+        <hr />
+
+        <h2>Preview</h2>
+
+        <div data-js="insta-wrapper" class="insta-preview-wrapper">
+            {% for item in craftagram.data %}
+                <img src={{item.media_url}} class="insta-preview" />
+            {% endfor %}
+        </div>
+
+        <a data-after="{{ craftagram.paging.cursors.after }}" data-js="load-more" class="btn">Load more</a>
+    {% endif %}
+
 {% endset %}
+
 {% js %}
     $(document).ready(function() {
         
@@ -113,4 +145,19 @@
             $('[data-js="auth-button"]').toggleClass('hidden');
         }
     });
+
+    {% if settings['longAccessToken'] != "" %}
+        $("[data-js=load-more]").click(function(e) {
+            e.preventDefault();
+            $.get("{{ siteUrl }}/actions/craftagram/default/get-next-page?siteId={{ siteId }}&limit=2&url=" + $(this).data('after'), function(res) {
+                data = $.parseJSON(res);
+
+                $.each(data["data"], function() {
+                    $("[data-js='insta-wrapper']").append("<img src="+$(this)[0]["media_url"]+" width=150 class='insta-preview' />");
+                });
+
+                $("[data-js=load-more]").data("after", data["paging"]["cursors"]["after"]);
+            });
+        });
+    {% endif %}
 {% endjs %}
