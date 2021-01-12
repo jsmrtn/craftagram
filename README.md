@@ -143,7 +143,7 @@ For example, you could do this to have a 'load more' button:
 
 If you're using Craft headless, you can access the instagram feed via `/actions/craftagram/default/api`, which will return the raw JSON data from instagram. You can pass the following parameters:
 
-| Field Name | Description |
+| URL Parameter | Description |
 | --- | --- |
 | limit | The default limit from instagram is 25 |
 | siteId | The current site's ID. If you only have one site on your install you can leave this blank, otherwise pass the `siteId` for the site you have added the authorisation to. You can hard-code the site ID if you have only set up authorisation on one of your multi-site installs, otherwise pass the current `siteId` dynamically |
