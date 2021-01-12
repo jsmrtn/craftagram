@@ -21,13 +21,24 @@ use Craft;
  * @since     1.0.0
  */
 class CraftagramVariable {
+
     // Public Methods
     // =========================================================================
 
+    /**
+     * Get instagram feed
+     *
+     * @return string
+     */
     public function getInstagramFeed($limit = 25, $siteId = 0, $url = '') {
         return Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $url);
     }
 
+    /**
+     * Get profile meta information
+     *
+     * @return string
+     */
     public function getProfileMeta($username) {
         return Craftagram::$plugin->craftagramService->getProfileMeta($username);
     }

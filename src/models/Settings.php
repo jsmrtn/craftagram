@@ -16,11 +16,6 @@ use scaramangagency\craftagram\services\CraftagramService;
 use Craft;
 use craft\base\Model;
 
-/**
- * @author    Scaramanga Agency
- * @package   Craftagram
- * @since     1.0.0
- */
 class Settings extends Model
 {
     // Public Properties

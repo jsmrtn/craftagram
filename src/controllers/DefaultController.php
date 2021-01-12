@@ -34,10 +34,23 @@ class DefaultController extends Controller {
      */
     protected $allowAnonymous = ['refresh-token', 'auth', 'get-next-page'];
 
+    // Public Methods
+    // =========================================================================
+    
+    /**
+     * Refresh the instragram token
+     *
+     * @return bool
+     */
     public function actionRefreshToken() {
         return Craftagram::$plugin->craftagramService->refreshToken();
     }
 
+    /**
+     * Redirect user to instagram for authentication
+     *
+     * @return Response
+     */
     public function actionHandleAuth($site_id, $client_id) {
         $url = rtrim(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl), '/'); 
         $appId = Craft::parseEnv($client_id);
@@ -46,6 +59,11 @@ class DefaultController extends Controller {
         exit;
     }
 
+    /**
+     * Redirect user to craftagram settings page
+     *
+     * @return Response|null
+     */
     public function actionAuth() {
         $url = parse_url(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl) . $_SERVER['REQUEST_URI']); 
         parse_str($url['query'], $params); 
@@ -59,12 +77,32 @@ class DefaultController extends Controller {
         }
     }
 
-    public function actionGetNextPage($url, $siteId) {
+    /**
+     * Return instagram feed based on supplied page
+     *
+     * @return string
+     */
+    public function actionGetNextPage($url, $siteId, $limit = 25) {
         $url = parse_url($url);
-        parse_str($url['query'], $params);
-        $after = $params['after'];
-        $limit = $params['limit'];
+
+        if (array_key_exists('query', $url)) {
+            parse_str($url['query'], $params);
+            $after = $params['after'];
+            $limit = $params['limit'];
+        } else {
+            $after = $url['path'];
+        }
 
         return json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $after));
+    }
+
+    /**
+     * Return instagram feed based on supplied page
+     *
+     * @return string
+     */
+    public function actionApi($limit = 25, $siteId = 0, $url = '') {
+        header('Content-type:application/json;charset=utf-8');
+        echo json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $url));
     }
 }

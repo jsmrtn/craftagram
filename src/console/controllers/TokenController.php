@@ -14,13 +14,7 @@ use scaramangagency\craftagram\Craftagram;
 
 use craft\console\Controller;
 
-/**
- * Token
- *
- * @author    dr. Ottó Radics
- * @package   Craftagram
- * @since     1.3.0
- */
+
 class TokenController extends Controller {
 
     // Public Methods

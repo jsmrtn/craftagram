@@ -15,6 +15,11 @@ class SettingsController extends Controller
     // Public Methods
     // =========================================================================
 
+    /**
+     * Render settings page
+     *
+     * @return Response
+     */
     public function actionIndex(int $siteId = 0) {
         if ($siteId == 0) {
             $settingsRecord = SettingsRecord::findOne(1);
@@ -37,8 +42,14 @@ class SettingsController extends Controller
         ]);
     }
 
+    /**
+     * Save plugin settings
+     *
+     * @return Response|null
+     */
     public function actionSavePluginSettings() {
         $this->requirePostRequest();
+
         $settings = Craft::$app->getRequest()->getBodyParam('settings', []);
         $plugin = Craft::$app->getPlugins()->getPlugin('craftagram');
 
@@ -50,7 +61,6 @@ class SettingsController extends Controller
             'craftagramSiteId' => $settings['siteId']
         ];
 
-        // Save Long Access Token
         $longAccessTokenRecord = SettingsRecord::findOne($params);
             
         if (!$longAccessTokenRecord) {

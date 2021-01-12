@@ -101,7 +101,9 @@ The options that you get are [all of the options](https://developers.facebook.co
 
 ### Pagination
 
-If you're limiting, you'll need to paginate. You can get the next URL using `{{ craftagram.paging.next|url_encode }}`. **You will need** to use the `url_encode` filter, otherwise the pagination will fail. Remember to pass the correct `siteId` for the active site, if appropriate.
+If you have limits on your feed, you can pass the `after` (or `before` if you're paginating backwards) parameter and init an AJAX function to return the data.
+
+Remember to pass `limit`, and also to pass the correct `siteId` for the active site, if appropriate.
 
 For example, you could do this to have a 'load more' button:
 ```
@@ -114,13 +116,13 @@ For example, you could do this to have a 'load more' button:
         {% endfor %}
     </div>
 
-    <a href="{{ craftagram.paging.next|url_encode }}" data-js="load-more">Load more</a>
+    <a data-after="{{ craftagram.paging.cursors.after }}" data-js="load-more">Load more</a>
 {% endif %}
 
 {% js %}
     $("[data-js=load-more]").click(function(e) {
         e.preventDefault();
-        $.get("{{ parseEnv(craft.app.sites.primarySite.baseUrl) }}/actions/craftagram/default/get-next-page?siteId={{ currentSite.id }}&url=" + $(this).attr('href'), function(res) {
+        $.get("{{ parseEnv(craft.app.sites.primarySite.baseUrl) }}/actions/craftagram/default/get-next-page?siteId={{ currentSite.id }}&limit=10&url=" + $(this).data('after'), function(res) {
             data = $.parseJSON(res);
 
             // For each, append the item to our wrapper
@@ -128,8 +130,8 @@ For example, you could do this to have a 'load more' button:
                 $("[data-js='insta-wrapper']").append("<img src="+$(this)[0]["media_url"]+" />");
             });
 
-            // Update the paging URL. Note the encodeURIComponent
-            $("[data-js=load-more]").attr("href", encodeURIComponent(data["paging"]["next"]));
+            // Update the paging with the next after.
+            $("[data-js=load-more]").data("after", data["paging"]["cursors"]["after"]);
         });
     });
 {% endjs %}

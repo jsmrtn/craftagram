@@ -18,13 +18,14 @@ use craft\base\Component;
 use craft\services\Plugins;
 use putyourlightson\logtofile\LogToFile;
 
-/**
- * @author    Scaramanga Agency
- * @package   Craftagram
- * @since     1.0.0
- */
+
 class CraftagramService extends Component {
 
+    /**
+     * Grab the long access token based on supplied site
+     *
+     * @return string
+     */
     public function getLongAccessTokenSetting($siteId) {
 
         $params = [
@@ -41,6 +42,11 @@ class CraftagramService extends Component {
         return $longAccessTokenRecord->getAttribute('longAccessToken');
     }
 
+    /**
+     * Loop sites and refresh tokens
+     *
+     * @return bool
+     */
     public function refreshToken() {
         $siteIds = Craft::$app->sites->allSiteIds();
 
@@ -77,6 +83,9 @@ class CraftagramService extends Component {
         }
     }
 
+    /**
+     * Get short access token from Instagram
+     */
     public function getShortAccessToken($code, $siteId) {
         $ch = curl_init();
 
@@ -108,7 +117,11 @@ class CraftagramService extends Component {
         return Craftagram::$plugin->craftagramService->getLongAccessToken($shortAccessToken, $siteId, $longAccessTokenRecord->appSecret);
     }
 
-
+    /**
+     * Get long access token from instagram and save it
+     * 
+     * @return string
+     */
     public function getLongAccessToken($shortAccessToken, $siteId, $secret) {
         $ch = curl_init();
 
@@ -143,14 +156,18 @@ class CraftagramService extends Component {
         return $token;
     }
 
-    
+    /**
+     * Get instagram feed
+     * 
+     * @return string|null
+     */    
     public function getInstagramFeed($limit, $siteId, $after) {
-        // If the template hasnt been updated to put in a site ID, just grab the default row we already have
+
         if ($siteId == 0) {
-            $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting(1);
-        } else {
-            $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
+            $siteId = Craft::$app->sites->primarySite->id;
         }
+
+        $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
 
         if (!$longAccessTokenRecord) {
             return false;
@@ -185,6 +202,11 @@ class CraftagramService extends Component {
         return (isset($res->data) ? $res : null);
     }
 
+    /**
+     * Get profile information
+     * 
+     * @return string|null
+     */ 
     public function getProfileMeta($username) {
         try {
 

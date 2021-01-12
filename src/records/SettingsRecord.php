@@ -14,12 +14,9 @@ use Craft;
 use craft\db\ActiveRecord;
 use craft\helpers\StringHelper;
 
-/**
- * @author    Scaramanga Agency
- * @package   Craftagram
- * @since     1.2.0
- */
+
 class SettingsRecord extends ActiveRecord {
+    
     // Public Static Methods
     // =========================================================================
 
