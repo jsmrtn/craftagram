@@ -103,6 +103,7 @@ class DefaultController extends Controller {
      */
     public function actionApi($limit = 25, $siteId = 0, $url = '') {
         header('Content-type:application/json;charset=utf-8');
-        return json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $url));
+        echo json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $url));
+        die();
     }
 }
