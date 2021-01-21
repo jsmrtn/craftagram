@@ -49,7 +49,7 @@ class Craftagram extends Plugin {
     /**
      * @var string
      */
-    public $schemaVersion = '1.4.0';
+    public $schemaVersion = '1.4.4';
 
     /**
      * @var bool

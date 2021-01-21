@@ -28,6 +28,7 @@ class Settings extends Model
     public $appSecret;
     public $longAccessToken;
     public $craftagramSiteId;
+    public $secureApiEndpoint;
 
     // Public Methods
     // =========================================================================
@@ -39,7 +40,8 @@ class Settings extends Model
         return [
             [['appId', 'appSecret'], 'required'],
             ['longAccessToken', 'string'],
-            ['craftagramSiteId', 'integer']
+            ['craftagramSiteId', 'integer'],
+            ['secureApiEndpoint', 'boolean']
         ];
     }
 }

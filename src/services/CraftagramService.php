@@ -43,6 +43,27 @@ class CraftagramService extends Component {
     }
 
     /**
+     * Check if the API endpoint is secured for this site
+     *
+     * @return string
+     */
+    public function checkIfSecured($siteId) {
+
+        $params = [
+            'craftagramSiteId' => $siteId
+        ];
+
+        $isSecured = SettingsRecord::findOne($params); 
+
+        if (!$isSecured) {
+            LogToFile::info('This site does not have a linked instagram account', 'craftagram');
+            return false;
+        }
+
+        return $isSecured->getAttribute('secureApiEndpoint');
+    }
+
+    /**
      * Loop sites and refresh tokens
      *
      * @return bool
@@ -200,6 +221,32 @@ class CraftagramService extends Component {
         }
         
         return (isset($res->data) ? $res : null);
+    }
+
+    /**
+     * Get instagram feed
+     * 
+     * @return mixed
+     */
+    public function handleAuthentication()
+    {
+        list($username, $password) = Craft::$app->getRequest()->getAuthCredentials();
+
+        if (!$username || !$password) {
+            throw new UnauthorizedHttpException('Your request was made with invalid credentials.');
+        }
+
+        $user = Craft::$app->getUsers()->getUserByUsernameOrEmail(Db::escapeParam($username));
+
+        if (!$user) {
+            throw new UnauthorizedHttpException('Your request was made with invalid credentials.');
+        }
+
+        if (!$user->authenticate($password)) {
+            throw new UnauthorizedHttpException('Your request was made with invalid credentials.');
+        }
+
+        return true;
     }
 
     /**

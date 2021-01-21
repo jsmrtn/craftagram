@@ -32,7 +32,7 @@ class DefaultController extends Controller {
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected $allowAnonymous = ['refresh-token', 'auth', 'get-next-page'];
+    protected $allowAnonymous = ['refresh-token', 'auth', 'get-next-page', 'api'];
 
     // Public Methods
     // =========================================================================
@@ -102,8 +102,13 @@ class DefaultController extends Controller {
      * @return string
      */
     public function actionApi($limit = 25, $siteId = 0, $url = '') {
-        header('Content-type:application/json;charset=utf-8');
-        echo json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $url));
-        die();
+        $isSecured = Craftagram::$plugin->craftagramService->checkIfSecured($siteId);
+        $isAuthenticated = $isSecured ? Craftagram::$plugin->craftagramService->handleAuthentication() : true;
+
+        if ($isAuthenticated) {
+            header('Content-type:application/json;charset=utf-8');
+            echo json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $url));
+            die();
+        }
     }
 }

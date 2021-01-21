@@ -141,13 +141,17 @@ For example, you could do this to have a 'load more' button:
 
 ### Headless mode
 
-If you're using Craft headless, you can access the instagram feed via `/actions/craftagram/default/api`, which will return the raw JSON data from instagram. You can pass the following parameters:
+If you're using Craft headless (or generally just need a JSON formatted version of your results), you can access the instagram feed via `/actions/craftagram/default/api` (or `/craftagramApi` if you want to save some bytes), which will return the raw JSON data from instagram. You can pass the following parameters:
 
 | Field Name | Description |
 | --- | --- |
 | limit | The default limit from instagram is 25 |
 | siteId | The current site's ID. If you only have one site on your install you can leave this blank, otherwise pass the `siteId` for the site you have added the authorisation to. You can hard-code the site ID if you have only set up authorisation on one of your multi-site installs, otherwise pass the current `siteId` dynamically |
 | url | Pass the `after` or `before` parameters from `data->paging->cursors` to get the next or the previous set of results |
+
+#### Security
+
+There is a setting to opt-in to a more secure API endpoint. If you switch it on, you must pass a `Basic Auth` header to access this endpoint, otherwise you will receive an error. The Username and Password should be for an activated Craft user. **Please note** that you must enable the secure endpoint for each site individually.
 
 ### Profile Information
 
