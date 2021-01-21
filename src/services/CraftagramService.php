@@ -17,7 +17,7 @@ use Craft;
 use craft\base\Component;
 use craft\services\Plugins;
 use putyourlightson\logtofile\LogToFile;
-
+use craft\helpers\Db;
 
 class CraftagramService extends Component {
 
@@ -48,6 +48,10 @@ class CraftagramService extends Component {
      * @return string
      */
     public function checkIfSecured($siteId) {
+
+        if ($siteId == 0) {
+            $siteId = Craft::$app->sites->primarySite->id;
+        }
 
         $params = [
             'craftagramSiteId' => $siteId
@@ -233,17 +237,17 @@ class CraftagramService extends Component {
         list($username, $password) = Craft::$app->getRequest()->getAuthCredentials();
 
         if (!$username || !$password) {
-            throw new UnauthorizedHttpException('Your request was made with invalid credentials.');
+            return false;
         }
 
         $user = Craft::$app->getUsers()->getUserByUsernameOrEmail(Db::escapeParam($username));
 
         if (!$user) {
-            throw new UnauthorizedHttpException('Your request was made with invalid credentials.');
+            return false;
         }
 
         if (!$user->authenticate($password)) {
-            throw new UnauthorizedHttpException('Your request was made with invalid credentials.');
+            return false;
         }
 
         return true;

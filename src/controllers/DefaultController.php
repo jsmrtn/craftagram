@@ -16,6 +16,7 @@ use scaramangagency\craftagram\services\CraftagramService;
 use Craft;
 use craft\web\Controller;
 use craft\helpers\UrlHelper;
+use yii\web\UnauthorizedHttpException;
 
 /**
  * @author    Scaramanga Agency
@@ -103,12 +104,15 @@ class DefaultController extends Controller {
      */
     public function actionApi($limit = 25, $siteId = 0, $url = '') {
         $isSecured = Craftagram::$plugin->craftagramService->checkIfSecured($siteId);
-        $isAuthenticated = $isSecured ? Craftagram::$plugin->craftagramService->handleAuthentication() : true;
 
-        if ($isAuthenticated) {
-            header('Content-type:application/json;charset=utf-8');
-            echo json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $url));
-            die();
+        if ($isSecured) {
+            if (!Craftagram::$plugin->craftagramService->handleAuthentication()) {
+                throw new UnauthorizedHttpException('Your request was made with invalid credentials.');
+            }
         }
+
+        header('Content-type:application/json;charset=utf-8');
+        echo json_encode(Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $url));
+        die();
     }
 }

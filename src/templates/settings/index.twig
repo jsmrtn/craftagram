@@ -102,7 +102,8 @@
                 instructions: 'If you switch this on, you must pass a Basic Auth header to access the API endpoint. The Username and Password should be for an activated Craft user. ',
                 id: 'secureApiEndpoint',
                 name: 'secureApiEndpoint',
-                value: settings['secureApiEndpoint'] })
+                value: settings['secureApiEndpoint'],
+                on: settings['secureApiEndpoint'] ? settings['secureApiEndpoint'] : "" })
             }}
 
             {{
