@@ -9,16 +9,16 @@ use scaramangagency\craftagram\Craftagram;
 use scaramangagency\craftagram\records\SettingsRecord as SettingsRecord;
 
 /**
- * m2010121_163000_secureapi migration.
+ * m210121_165738_secureapi migration.
  */
-class m2010121_163000_secureapi extends Migration
+class m210121_165738_secureapi extends Migration
 {
     /**
      * @inheritdoc
      */
     public function safeUp()
     {
-        echo "m2010121_163000_secureapi updating.\n";
+        echo "m210121_165738_secureapi updating.\n";
         if (Craft::$app->db->schema->getTableSchema('{{%craftagram_settings}}') != null) {
             $this->addColumn(
                 '{{%craftagram_settings}}',
@@ -33,7 +33,7 @@ class m2010121_163000_secureapi extends Migration
      */
     public function safeDown()
     {
-        echo "m2010121_163000_secureapi cannot be reverted.\n";
+        echo "m210121_165738_secureapi cannot be reverted.\n";
         return false;
     }
 }
