@@ -75,9 +75,9 @@ class Craftagram extends Plugin {
             UrlManager::class,
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['refreshToken'] = 'craftagram/refresh-token';
+                $event->rules['refreshToken'] = 'craftagram/default/refresh-token';
                 $event->rules['auth'] = 'craftagram/default/auth';
-                $event->rules['craftagram-api'] = 'craftagram/default/api';
+                $event->rules['craftagramApi'] = 'craftagram/default/api';
             }
         );
 
