@@ -176,7 +176,7 @@ class CraftagramService extends Component {
         $ch = curl_init();
 
         $params = [
-            'fields' => 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username',
+            'fields' => 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username,children{media_type,media_url,thumbnail_url}',
             'access_token' => $longAccessTokenRecord,
             'limit' => $limit
         ];
