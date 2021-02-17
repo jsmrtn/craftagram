@@ -1,5 +1,13 @@
 # craftagram Changelog
 
+## 1.4.4 - 2021-02-17
+### Changed
+- Add basic auth to headless endpoint. Existing installations will remain unsecured until the option is enabled.
+
+### Fixed
+- Allow album children (#38)
+- Stop error on headless endpoint (#37)
+
 ## 1.4.3 - 2021-01-12
 ### Added
 - Add API endpoint for headless installations (#36)
