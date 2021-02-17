@@ -75,6 +75,7 @@ class Install extends Migration {
                     'appSecret'         => $this->text(),
                     'longAccessToken'   => $this->text(),
                     'craftagramSiteId'  => $this->integer()->null(),
+                    'secureApiEndpoint' => $this->integer()->defaultValue(1),
                     'dateCreated'       => $this->dateTime()->notNull(),
                     'dateUpdated'       => $this->dateTime()->notNull(),
                     'uid'               => $this->uid()

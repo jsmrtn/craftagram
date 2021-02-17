@@ -17,7 +17,7 @@ use Craft;
 use craft\base\Component;
 use craft\services\Plugins;
 use putyourlightson\logtofile\LogToFile;
-
+use craft\helpers\Db;
 
 class CraftagramService extends Component {
 
@@ -40,6 +40,31 @@ class CraftagramService extends Component {
         }
 
         return $longAccessTokenRecord->getAttribute('longAccessToken');
+    }
+
+    /**
+     * Check if the API endpoint is secured for this site
+     *
+     * @return string
+     */
+    public function checkIfSecured($siteId) {
+
+        if ($siteId == 0) {
+            $siteId = Craft::$app->sites->primarySite->id;
+        }
+
+        $params = [
+            'craftagramSiteId' => $siteId
+        ];
+
+        $isSecured = SettingsRecord::findOne($params); 
+
+        if (!$isSecured) {
+            LogToFile::info('This site does not have a linked instagram account', 'craftagram');
+            return false;
+        }
+
+        return $isSecured->getAttribute('secureApiEndpoint');
     }
 
     /**
@@ -176,7 +201,7 @@ class CraftagramService extends Component {
         $ch = curl_init();
 
         $params = [
-            'fields' => 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username',
+            'fields' => 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username,children{media_type,media_url,thumbnail_url}',
             'access_token' => $longAccessTokenRecord,
             'limit' => $limit
         ];
@@ -200,6 +225,32 @@ class CraftagramService extends Component {
         }
         
         return (isset($res->data) ? $res : null);
+    }
+
+    /**
+     * Get instagram feed
+     * 
+     * @return mixed
+     */
+    public function handleAuthentication()
+    {
+        list($username, $password) = Craft::$app->getRequest()->getAuthCredentials();
+
+        if (!$username || !$password) {
+            return false;
+        }
+
+        $user = Craft::$app->getUsers()->getUserByUsernameOrEmail(Db::escapeParam($username));
+
+        if (!$user) {
+            return false;
+        }
+
+        if (!$user->authenticate($password)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

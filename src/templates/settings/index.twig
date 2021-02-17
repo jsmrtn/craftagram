@@ -97,6 +97,15 @@
                 value: settings['longAccessToken'] })
             }}
 
+            {{ forms.lightswitchField({
+                label: 'Secure API endpoint',
+                instructions: 'If you switch this on, you must pass a Basic Auth header to access the API endpoint. The Username and Password should be for an activated Craft user. ',
+                id: 'secureApiEndpoint',
+                name: 'secureApiEndpoint',
+                value: settings['secureApiEndpoint'],
+                on: settings['secureApiEndpoint'] ? settings['secureApiEndpoint'] : "" })
+            }}
+
             {{
                 forms.hidden({
                     name: 'siteId',
@@ -108,7 +117,7 @@
         <input type="submit" class="submit btn" value="{{ 'Save'|t }}">
     </form>
 
-    {% set craftagram = craft.craftagram.getInstagramFeed(2, siteId) %}
+    {% set craftagram = craft.craftagram.getInstagramFeed(10, siteId) %}
     {% if craftagram|length %}
         <hr />
 
@@ -149,7 +158,7 @@
     {% if settings['longAccessToken'] != "" %}
         $("[data-js=load-more]").click(function(e) {
             e.preventDefault();
-            $.get("{{ siteUrl }}/actions/craftagram/default/get-next-page?siteId={{ siteId }}&limit=2&url=" + $(this).data('after'), function(res) {
+            $.get("{{ siteUrl }}/actions/craftagram/default/get-next-page?siteId={{ siteId }}&limit=10&url=" + $(this).data('after'), function(res) {
                 data = $.parseJSON(res);
 
                 $.each(data["data"], function() {

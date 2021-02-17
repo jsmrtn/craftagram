@@ -71,6 +71,7 @@ class SettingsController extends Controller
         $longAccessTokenRecord->setAttribute('appSecret', $settings['appSecret']);
         $longAccessTokenRecord->setAttribute('longAccessToken', $settings['longAccessToken']);
         $longAccessTokenRecord->setAttribute('craftagramSiteId', $settings['siteId']);
+        $longAccessTokenRecord->setAttribute('secureApiEndpoint', $settings['secureApiEndpoint']);
 
         if (!$longAccessTokenRecord->save()) {
             Craft::$app->getSession()->setError(Craft::t('app', "Couldn't save plugin settings."));
