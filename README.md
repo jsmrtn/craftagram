@@ -24,13 +24,13 @@ To install the plugin, follow these instructions.
 
 This is just a shortened version of what is available at the [official docs](https://developers.facebook.com/docs/instagram-basic-display-api/getting-started), so if you get stuck, check out the official docs.
 
-1. Go to https://developers.facebook.com, click My Apps, and create a new app. Select _For Everything Else_ from the modal, the other two options will not show the correct options in Step 5, as business integrations force the main Graph API.
+1. Go to https://developers.facebook.com, click My Apps, and create a new app. Select _More Options_ from the modal, then _Something Else_ when that option presents itself. The other three options will not show the correct options in Step 5, as business integrations force the main Graph API.
 2. Once you have created the app and are in the App Dashboard, navigate to Settings > Basic, scroll the bottom of page, and click Add Platform.
 3. Choose Website, add your website’s URL, and save your changes.
 4. Click Products, locate the Instagram Basic Display product, and click Set Up to add it to your app.
 5. Click Basic Display under Products > Instagram in the sidebar, scroll to the bottom of the page, then click Create New App.
 6. In the form that appears, complete each section using the below:
-    - **Display Name** Enter the name of the Facebook app you just created. This _should_ pre-populate.
+    - **Display Name** Enter the name of the Facebook app you just created. This will pre-populate.
     - **Valid OAuth Redirect URIs** Enter your _Primary Site_ URL, appended with `/actions/craftagram/default/auth` (i.e. https://www.yourwebsite.com/actions/craftagram/default/auth)
     - **Deauthorize Callback URL** and **Data Deletion Request Callback URL** Use the same URL as above.
     - Ignore **App Review**, as we do not recommend that you publish your app. You can use the app indefinitely in development mode.

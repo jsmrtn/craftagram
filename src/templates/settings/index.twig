@@ -117,7 +117,7 @@
         <input type="submit" class="submit btn" value="{{ 'Save'|t }}">
     </form>
 
-    {% set craftagram = craft.craftagram.getInstagramFeed(2, siteId) %}
+    {% set craftagram = craft.craftagram.getInstagramFeed(10, siteId) %}
     {% if craftagram|length %}
         <hr />
 
@@ -158,7 +158,7 @@
     {% if settings['longAccessToken'] != "" %}
         $("[data-js=load-more]").click(function(e) {
             e.preventDefault();
-            $.get("{{ siteUrl }}/actions/craftagram/default/get-next-page?siteId={{ siteId }}&limit=2&url=" + $(this).data('after'), function(res) {
+            $.get("{{ siteUrl }}/actions/craftagram/default/get-next-page?siteId={{ siteId }}&limit=10&url=" + $(this).data('after'), function(res) {
                 data = $.parseJSON(res);
 
                 $.each(data["data"], function() {
