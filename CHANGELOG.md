@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 1.4.5 - 2021-06-02
+### Fixed
+- Don't output video with the image tag (#41)
+
 ## 1.4.4 - 2021-02-17
 ### Changed
 - Add basic auth to headless endpoint. Existing installations will remain unsecured until the option is enabled.

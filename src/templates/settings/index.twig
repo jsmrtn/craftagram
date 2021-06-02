@@ -124,7 +124,7 @@
         <h2>Preview</h2>
 
         <div data-js="insta-wrapper" class="insta-preview-wrapper">
-            {% for item in craftagram.data %}
+            {% for item in craftagram.data if item.media_type == "IMAGE" %}
                 <img src={{item.media_url}} class="insta-preview" />
             {% endfor %}
         </div>
@@ -162,7 +162,9 @@
                 data = $.parseJSON(res);
 
                 $.each(data["data"], function() {
-                    $("[data-js='insta-wrapper']").append("<img src="+$(this)[0]["media_url"]+" width=150 class='insta-preview' />");
+                    if ($(this)[0]["media_type"] == "IMAGE") {
+                        $("[data-js='insta-wrapper']").append("<img src="+$(this)[0]["media_url"]+" width=150 class='insta-preview' />");
+                    }
                 });
 
                 $("[data-js=load-more]").data("after", data["paging"]["cursors"]["after"]);
