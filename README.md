@@ -22,16 +22,15 @@ To install the plugin, follow these instructions.
 
 ## Setting up your Facebook App
 
-This is just a shortened version of what is available at the [official docs](https://developers.facebook.com/docs/instagram-basic-display-api/getting-started), so if you get stuck, check out the official docs.
+> :warning: Important note on step 6 – your valid OAuth Redirect URI **has** to be the URL for the base site, do not try to use individual multi-site URLs. The base site URL will be appended with a state parameter ensuring that the correct site is targeted on the response from Instagram
 
-1. Go to https://developers.facebook.com, click My Apps, and create a new app. Select _More Options_ from the modal, then _Something Else_ when that option presents itself. The other three options will not show the correct options in Step 5, as business integrations force the main Graph API.
+1. Go to https://developers.facebook.com, click My Apps, and create a new app. Select _Consumer_ as your app type, and fill out the required information.
 2. Once you have created the app and are in the App Dashboard, navigate to Settings > Basic, scroll the bottom of page, and click Add Platform.
 3. Choose Website, add your website’s URL, and save your changes.
-4. Click Products, locate the Instagram Basic Display product, and click Set Up to add it to your app.
-5. Click Basic Display under Products > Instagram in the sidebar, scroll to the bottom of the page, then click Create New App.
-6. In the form that appears, complete each section using the below:
-    - **Display Name** Enter the name of the Facebook app you just created. This will pre-populate.
-    - **Valid OAuth Redirect URIs** Enter your _Primary Site_ URL, appended with `/actions/craftagram/default/auth` (i.e. https://www.yourwebsite.com/actions/craftagram/default/auth)
+4. Click 'Add Product' on the left hand side menu, locate the Instagram Basic Display product, and click Set Up to add it to your app.
+5. Click Basic Display under Products > Instagram in the sidebar, scroll to the bottom of the page, then click Create New App, and name your app whatever you like.
+6. When presented with the app page, complete each section using the below:
+    - **Valid OAuth Redirect URIs** Enter your _Primary Site base URL_, appended with `/actions/craftagram/default/auth` (i.e. https://www.yourwebsite.com/actions/craftagram/default/auth).
     - **Deauthorize Callback URL** and **Data Deletion Request Callback URL** Use the same URL as above.
     - Ignore **App Review**, as we do not recommend that you publish your app. You can use the app indefinitely in development mode.
     - Save Changes
@@ -48,6 +47,8 @@ Go to the settings page for `craftagram` and enter your `App ID` and `App Secret
 > Tip: The App ID and App Secret settings can be set to environment variables. See Environmental Configuration in the Craft docs to learn more about that.
 
 Instagram may challenge you with a login screen, so handle that, then click 'Authorize'. You will be redirected back to Craft with the Long Access Token field populated.
+
+> :warning: Check your logged in to the correct account before you try to authenticate (or don't be logged in at all). If you're logged in with a different user in the current browser session, you're going to have issues.
 
 ### Keeping your token active
 
