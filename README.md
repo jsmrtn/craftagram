@@ -48,7 +48,7 @@ Go to the settings page for `craftagram` and enter your `App ID` and `App Secret
 
 Instagram may challenge you with a login screen, so handle that, then click 'Authorize'. You will be redirected back to Craft with the Long Access Token field populated.
 
-> :warning: Check your logged in to the correct account before you try to authenticate (or don't be logged in at all). If you're logged in with a different user in the current browser session, you're going to have issues.
+> :warning: Check you're logged in to the correct account before you try to authenticate (or don't be logged in at all). If you're logged in with a different user in the current browser session, you're going to have issues.
 
 ### Keeping your token active
 
