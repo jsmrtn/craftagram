@@ -31,7 +31,7 @@
         }
     },
     "extra": {
-        "name": "craftagram",
+        "name": "Craftagram",
         "handle": "craftagram",
         "changelogUrl": "https://raw.githubusercontent.com/scaramangagency/craftagram/master/CHANGELOG.md",
         "components": {

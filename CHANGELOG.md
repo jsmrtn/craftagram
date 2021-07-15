@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+### Unreleased
+- Casing of plugin title in sidebar
+
+
 ## 1.4.5 - 2021-06-02
 ### Fixed
 - Don't output video with the image tag (#41)
