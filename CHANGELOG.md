@@ -1,8 +1,8 @@
 # craftagram Changelog
 
 ### Unreleased
+- Update cron example in README.txt (thanks @Ottergoose)
 - Casing of plugin title in sidebar
-
 
 ## 1.4.5 - 2021-06-02
 ### Fixed
