@@ -57,7 +57,7 @@ Instagram tokens expire in 60 days, so you'll need to set up a cron job to keep 
 For example, this would run the token refresh every month
 
 ```
-/usr/bin/wget -q 0 0 1 * * https://www.yourwebsite.com/actions/craftagram/default/refresh-token >/dev/null 2>&1
+0 0 1 * * /usr/bin/wget -q https://www.yourwebsite.com/actions/craftagram/default/refresh-token >/dev/null 2>&1
 ```
 
 If you fail to set up the cron, you can still refresh the token manaully, by going to the settings page, clicking the `Authorise Craft` and following the steps outlined above.
