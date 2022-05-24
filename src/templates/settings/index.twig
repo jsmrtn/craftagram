@@ -124,8 +124,10 @@
         <h2>Preview</h2>
 
         <div data-js="insta-wrapper" class="insta-preview-wrapper">
-            {% for item in craftagram.data if item.media_type == "IMAGE" %}
-                <img src={{item.media_url}} class="insta-preview" />
+            {% for item in craftagram.data %}
+                {% if item.media_type == "IMAGE" %}
+                    <img src={{item.media_url}} class="insta-preview" />
+                {% endif %}
             {% endfor %}
         </div>
 

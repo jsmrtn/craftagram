@@ -16,8 +16,8 @@ use scaramangagency\craftagram\records\SettingsRecord as SettingsRecord;
 use Craft;
 use craft\base\Component;
 use craft\services\Plugins;
-use putyourlightson\logtofile\LogToFile;
 use craft\helpers\Db;
+use Psr\Log\LogLevel;
 
 class CraftagramService extends Component {
 
@@ -35,7 +35,7 @@ class CraftagramService extends Component {
         $longAccessTokenRecord = SettingsRecord::findOne($params); 
 
         if (!$longAccessTokenRecord) {
-            LogToFile::info('An access token has not been obtained from Instagram', 'craftagram');
+            Craftagram::$plugin->log('An access token has not been obtained from Instagram');
             return false;
         }
 
@@ -60,7 +60,7 @@ class CraftagramService extends Component {
         $isSecured = SettingsRecord::findOne($params); 
 
         if (!$isSecured) {
-            LogToFile::info('This site does not have a linked instagram account', 'craftagram');
+            Craftagram::$plugin->log('This site does not have a linked instagram account');
             return false;
         }
 
@@ -99,9 +99,9 @@ class CraftagramService extends Component {
     
             try {
                 $expires = json_decode($res)->expires_in;
-                LogToFile::info('Successfully refreshed authentication token. Expires in ' . $expires, 'craftagram');
+                Craftagram::$plugin->log('Successfully refreshed authentication token. Expires in ' . $expires);
             } catch (Exception $e) {
-                LogToFile::error('Failed to refresh authentication token. Error: ' . $res, 'craftagram');
+                Craftagram::$plugin->log('Failed to refresh authentication token. Error: ' . $res, LogLevel:ERROR);
             }
     
             return true;
@@ -221,7 +221,7 @@ class CraftagramService extends Component {
         $res = json_decode($res);
 
         if (!isset($res->data)) {
-            LogToFile::error('Failed to get data. Response from Instagram: ' . json_encode($res), 'craftagram');
+            Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res), LogLevel::ERROR);
         }
         
         return (isset($res->data) ? $res : null);
@@ -289,7 +289,7 @@ class CraftagramService extends Component {
             return $meta;
 
         } catch (Exception $e) {
-            LogToFile::error('Failed to get profile meta. This endpoint may no longer be available.', 'craftagram');
+            Craftagram::$plugin->log('Failed to get profile meta. This endpoint may no longer be available.', LogLevel:ERROR);
             return null;
         }
     }

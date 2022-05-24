@@ -23,6 +23,11 @@ use craft\web\UrlManager;
 use craft\web\twig\variables\CraftVariable;
 use craft\helpers\UrlHelper;
 
+use craft\log\MonologTarget;
+use Monolog\Formatter\LineFormatter;
+use Psr\Log\LogLevel;
+use yii\log\Logger;
+
 use yii\base\Event;
 
 /**
@@ -49,17 +54,17 @@ class Craftagram extends Plugin {
     /**
      * @var string
      */
-    public $schemaVersion = '1.4.4';
+    public string $schemaVersion = '2.0.0';
 
     /**
      * @var bool
      */
-    public $hasCpSection = true;
+    public bool $hasCpSection = true;
     
     /**
      * @var bool
      */
-    public $hasCpSettings = true;
+    public bool $hasCpSettings = true;
 
     // Public Methods
     // =========================================================================
@@ -124,16 +129,26 @@ class Craftagram extends Plugin {
             ),
             __METHOD__
         );
+
+        $this->_registerLogTarget();
     }
 
-    public function afterSaveSettings() {
+    /**
+     * Logs a message
+     */
+    public function log(string $message, int $type = Logger::LEVEL_INFO): void
+    {
+        Craft::getLogger()->log($message, $type, 'craftagram');
+    }
+
+    public function afterSaveSettings(): void {
         parent::afterSaveSettings();
         Craft::$app->response
             ->redirect(UrlHelper::cpUrl('craftagram/settings'))
             ->send();
     }
 
-    public function getSettingsResponse() {
+    public function getSettingsResponse(): mixed {
         Craft::$app->controller->redirect(UrlHelper::cpUrl('craftagram/settings'));
     }
 
@@ -143,14 +158,34 @@ class Craftagram extends Plugin {
     /**
      * @inheritdoc
      */
-    protected function createSettingsModel() {
+    protected function createSettingsModel(): ?\craft\base\Model {
         return new Settings();
     }
 
     /**
      * @inheritdoc
      */
-    protected function settingsHtml(): string {
+    protected function settingsHtml(): ?string {
         return Craft::$app->view->renderTemplate('craftagram/settings');
+    }
+
+    /**
+     * Registers a custom log target, keeping the format as simple as possible.
+     *
+     * @see LineFormatter::SIMPLE_FORMAT
+     */
+    private function _registerLogTarget(): void
+    {
+        Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
+            'name' => 'craftagram',
+            'categories' => ['craftagram'],
+            'level' => LogLevel::INFO,
+            'logContext' => false,
+            'allowLineBreaks' => false,
+            'formatter' => new LineFormatter(
+                format: "[%datetime%] %message%\n",
+                dateFormat: 'Y-m-d H:i:s',
+            ),
+        ]);
     }
 }
