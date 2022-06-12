@@ -1,1 +1,8 @@
-{% redirect 'craftagram/settings' %}
+{% set currentSite = craft.app.request.getQueryParam('site') %}
+{% set siteId = craft.app.sites.allSiteIds()[0] %}
+
+{% if currentSite != '' %} 
+    {% set siteId = craft.app.sites.getSiteByHandle(currentSite).id %}
+{% endif %}
+
+{% redirect 'craftagram/settings/' ~ siteId ~ '?site=' ~ craft.app.request.getQueryParam('site') %}

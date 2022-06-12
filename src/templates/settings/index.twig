@@ -45,7 +45,7 @@
             {% for id in siteIds %}
                 {% set site = craft.app.sites.getSiteById(id) %}
                 <li>
-                    <a {% if id == siteId %}class="sel"{% else %}href="{{ cpUrl() }}/craftagram/settings/{{ site.id }}"{% endif %}>
+                    <a {% if id == siteId %}class="sel"{% else %}href="{{ cpUrl('craftagram/settings/'~site.id~'', {'site':site.handle}) }}"{% endif %}>
                         {{ site.name }}
                     </a>
                 </li>
