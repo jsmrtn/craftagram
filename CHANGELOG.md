@@ -1,6 +1,6 @@
 # craftagram Changelog
 
-### 2.0.0 - 2022-06-30
+## 2.0.0 - 2022-06-30
 - Update cron example in README.txt (thanks @Ottergoose)
 - Casing of plugin title in sidebar
 - Craft 4 support
