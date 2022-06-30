@@ -1,4 +1,4 @@
-# craftagram plugin for Craft CMS 3.x
+# craftagram plugin for Craft CMS 4.x
 
 Grab Instagram content through the Instagram Basic Display API
 

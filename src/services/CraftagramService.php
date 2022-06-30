@@ -221,7 +221,7 @@ class CraftagramService extends Component {
         $res = json_decode($res);
 
         if (!isset($res->data)) {
-            Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res), LogLevel::ERROR);
+            Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res));
         }
         
         return (isset($res->data) ? $res : null);
