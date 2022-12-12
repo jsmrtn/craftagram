@@ -1,5 +1,8 @@
 # craftagram Changelog
 
+## 2.0.1 - 2022-12-12
+- Fix error typing
+
 ## 2.0.0 - 2022-06-30
 - Update cron example in README.txt (thanks @Ottergoose)
 - Casing of plugin title in sidebar

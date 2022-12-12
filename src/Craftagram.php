@@ -136,7 +136,7 @@ class Craftagram extends Plugin {
     /**
      * Logs a message
      */
-    public function log(string $message, int $type = Logger::LEVEL_INFO): void
+    public function log(string $message, string $type = Logger::LEVEL_INFO): void
     {
         Craft::getLogger()->log($message, $type, 'craftagram');
     }
