@@ -1,5 +1,5 @@
 {
-    "name": "scaramangagency/craftagram",
+    "name": "am-impact/craftagram",
     "description": "Grab Instagram content through the Instagram Basic Display API",
     "type": "craft-plugin",
     "version": "1.4.5",
