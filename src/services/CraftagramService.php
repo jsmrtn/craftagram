@@ -120,6 +120,7 @@ class CraftagramService extends Component {
 
         $longAccessTokenRecord = SettingsRecord::findOne($getSettings);
 
+        // Todo replace deprecated parseEnv()
         $params = [
             'client_id' => Craft::parseEnv($longAccessTokenRecord->appId),
             'client_secret' => Craft::parseEnv($longAccessTokenRecord->appSecret),
