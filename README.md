@@ -2,7 +2,7 @@
 
 Grab Instagram content through the Instagram Basic Display API
 
-a&m impact fix 
+a&m impact fix pull request
 
 ## Requirements
 
