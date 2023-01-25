@@ -129,7 +129,9 @@
             {% endfor %}
         </div>
 
-        <a data-after="{{ craftagram.paging.cursors.after }}" data-js="load-more" class="btn">Load more</a>
+        {% if craftagram.paging is defined %}
+            <a data-after="{{ craftagram.paging.cursors.after }}" data-js="load-more" class="btn">Load more</a>
+        {% endif %}
     {% endif %}
 
 {% endset %}
