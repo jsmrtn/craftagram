@@ -18,6 +18,7 @@ use craft\base\Component;
 use craft\services\Plugins;
 use putyourlightson\logtofile\LogToFile;
 use craft\helpers\Db;
+use craft\helpers\App;
 
 class CraftagramService extends Component {
 
@@ -121,10 +122,10 @@ class CraftagramService extends Component {
         $longAccessTokenRecord = SettingsRecord::findOne($getSettings);
 
         $params = [
-            'client_id' => Craft::parseEnv($longAccessTokenRecord->appId),
-            'client_secret' => Craft::parseEnv($longAccessTokenRecord->appSecret),
+            'client_id' => App::parseEnv($longAccessTokenRecord->appId),
+            'client_secret' => App::parseEnv($longAccessTokenRecord->appSecret),
             'grant_type' => 'authorization_code',
-            'redirect_uri' => rtrim(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl), '/') . '/actions/craftagram/default/auth',
+            'redirect_uri' => rtrim(App::parseEnv(Craft::$app->sites->primarySite->baseUrl), '/') . '/actions/craftagram/default/auth',
             'code' => $code
         ];
 
@@ -151,7 +152,7 @@ class CraftagramService extends Component {
         $ch = curl_init();
 
         $params = [
-            'client_secret' => Craft::parseEnv($secret),
+            'client_secret' => App::parseEnv($secret),
             'grant_type' => 'ig_exchange_token',
             'access_token' => $shortAccessToken
         ];
