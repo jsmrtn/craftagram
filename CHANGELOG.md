@@ -1,6 +1,7 @@
 # craftagram Changelog
 
-### Unreleased
+## 1.4.6 - 2023-02-06
+- Fix parseEnv deprecation
 - Update cron example in README.txt (thanks @Ottergoose)
 - Casing of plugin title in sidebar
 
