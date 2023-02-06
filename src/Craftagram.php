@@ -149,7 +149,7 @@ class Craftagram extends Plugin {
     }
 
     public function getSettingsResponse(): mixed {
-        Craft::$app->controller->redirect(UrlHelper::cpUrl('craftagram/settings'));
+        return Craft::$app->controller->redirect(UrlHelper::cpUrl('craftagram/settings'));
     }
 
     // Protected Methods

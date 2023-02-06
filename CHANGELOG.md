@@ -1,5 +1,8 @@
 # craftagram Changelog
 
+## 2.0.2 - 2023-02-06
+- Fix settings URL (#61)
+
 ## 2.0.1 - 2022-12-12
 - Fix error typing
 
