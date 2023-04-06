@@ -68,46 +68,22 @@ class CraftagramService extends Component {
     }
 
     /**
-     * Loop sites and refresh tokens
+     * Loop all enabled sites and refresh long access tokens
      *
-     * @return bool
+     * @return bool true if refreshs where successful, otherwise false
      */
     public function refreshToken() {
         $siteIds = Craft::$app->sites->getAllSiteIds();
 
+        $allRefreshsSuccessful = true;
 
         foreach ($siteIds as $siteId) {
-            $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
-
-            if (!$longAccessTokenRecord) {
-                return false;
+            if (!$this->refreshTokenForSiteId($siteId)) {
+                $allRefreshsSuccessful = false;
             }
-
-            $ch = curl_init();
-
-            $params = [
-                'access_token' => $longAccessTokenRecord,
-                'grant_type' => 'ig_refresh_token'
-            ];
-
-            curl_setopt($ch, CURLOPT_URL,'https://graph.instagram.com/refresh_access_token?'.http_build_query($params));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-            $res = curl_exec($ch);
-            curl_close($ch);
-
-            try {
-                $expires = json_decode($res)->expires_in;
-                Craftagram::$plugin->log('Successfully refreshed authentication token. Expires in ' . $expires);
-            } catch (Exception $e) {
-                Craftagram::$plugin->log('Failed to refresh authentication token. Error: ' . $res, LogLevel:ERROR);
-                return false;
-            }
-
         }
 
-        return true;
+        return $allRefreshsSuccessful;
     }
 
     /**
