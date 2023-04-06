@@ -39,11 +39,19 @@ class DefaultController extends Controller {
     // =========================================================================
 
     /**
-     * Refresh the instragram token
+     * Refresh the instragram token for all enabled sites
+     * or for a specific one if param siteId is given
      *
-     * @return bool
+     * @param  integer $siteId siteId to refresh the long access token for
+     * @return bool true if successful, otherwise false
      */
     public function actionRefreshToken() {
+        $siteId = Craft::$app->getRequest()->getParam('siteId', null);
+
+        if ($siteId) {
+            return Craftagram::$plugin->craftagramService->refreshTokenForSiteId((int) $siteId);
+        }
+
         return Craftagram::$plugin->craftagramService->refreshToken();
     }
 
