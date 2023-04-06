@@ -102,10 +102,12 @@ class CraftagramService extends Component {
                 Craftagram::$plugin->log('Successfully refreshed authentication token. Expires in ' . $expires);
             } catch (Exception $e) {
                 Craftagram::$plugin->log('Failed to refresh authentication token. Error: ' . $res, LogLevel:ERROR);
+                return false;
             }
 
-            return true;
         }
+
+        return true;
     }
 
     /**
