@@ -158,7 +158,7 @@ There is a setting to opt-in to a more secure API endpoint. If you switch it on,
 
 > :warning: :warning: :warning:
 >
-> This uses the publically available instagram GraphQL API, accessible by adding *?__a=1* to an instagram URL. This may be deprecated or removed in the future.
+> This uses the publically available instagram GraphQL API, accessible by adding *?__a=1* to an instagram URL. **The API endpoint is no longer functional, so do not use this feature.** It will be deprecated in a future release.
 
 Used to grab some basic profile information not available natively in the Basic Display API. You can pass in any instagram profile, as this endpoint returns this information regardless of public or private status.
 
