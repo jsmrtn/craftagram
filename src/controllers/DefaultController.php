@@ -34,7 +34,7 @@ class DefaultController extends Controller {
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected $allowAnonymous = ['refresh-token', 'auth', 'get-next-page', 'api'];
+    protected array|int|bool $allowAnonymous = ['refresh-token', 'auth', 'get-next-page', 'api'];
 
     // Public Methods
     // =========================================================================

@@ -45,7 +45,7 @@
             {% for id in siteIds %}
                 {% set site = craft.app.sites.getSiteById(id) %}
                 <li>
-                    <a {% if id == siteId %}class="sel"{% else %}href="{{ cpUrl() }}/craftagram/settings/{{ site.id }}"{% endif %}>
+                    <a {% if id == siteId %}class="sel"{% else %}href="{{ cpUrl('craftagram/settings/'~site.id~'', {'site':site.handle}) }}"{% endif %}>
                         {{ site.name }}
                     </a>
                 </li>
@@ -124,8 +124,10 @@
         <h2>Preview</h2>
 
         <div data-js="insta-wrapper" class="insta-preview-wrapper">
-            {% for item in craftagram.data if item.media_type == "IMAGE" %}
-                <img src={{item.media_url}} class="insta-preview" />
+            {% for item in craftagram.data %}
+                {% if item.media_type == "IMAGE" %}
+                    <img src={{item.media_url}} class="insta-preview" />
+                {% endif %}
             {% endfor %}
         </div>
 
