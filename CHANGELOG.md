@@ -1,5 +1,18 @@
 # craftagram Changelog
 
+## 3.0.0 - 2024-05-22
+### Added
+- Namespace to new plugin owner. The plugin now lives under `@jsmrtn/craftagram` rather than `@scaramangagency/craftagram`.
+- Add CraftCMS 5 compatibility. It retains compatibility for CraftCMS 4.
+- Allows refresh of individual site when refreshing tokens.
+
+### Fixed
+- Fixes bug where multi-site instances would only refresh the first long access token.
+- Fixes incorrect `ExitCode` when using console command to refresh tokens.
+
+### Removed
+- `craft.craftagram.getProfileMeta()` has been removed, as the API endpoint is no longer functional.
+
 ## 2.0.2 - 2023-02-06
 - Fix settings URL (#61)
 
