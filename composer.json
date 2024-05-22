@@ -2,7 +2,7 @@
     "name": "jsmrtn/craftagram",
     "description": "Grab Instagram content through the Instagram Basic Display API",
     "type": "craft-plugin",
-    "version": "3.0.0-beta",
+    "version": "3.0.0",
     "keywords": [
         "craft",
         "cms",
