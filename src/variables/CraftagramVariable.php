@@ -32,13 +32,4 @@ class CraftagramVariable {
     public function getInstagramFeed($limit = 25, $siteId = 0, $url = '') {
         return Craftagram::$plugin->craftagramService->getInstagramFeed($limit, $siteId, $url);
     }
-
-    /**
-     * Get profile meta information
-     *
-     * @return string
-     */
-    public function getProfileMeta($username) {
-        return Craftagram::$plugin->craftagramService->getProfileMeta($username);
-    }
 }
