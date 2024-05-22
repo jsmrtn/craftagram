@@ -1,6 +1,6 @@
 # craftagram Changelog
 
-## 3.0.0 - 2024-05-22
+## 3.0.0-beta - 2024-05-22
 ### Added
 - Namespace to new plugin owner. The plugin now lives under `@jsmrtn/craftagram` rather than `@scaramangagency/craftagram`.
 - Add CraftCMS 5 compatibility. It retains compatibility for CraftCMS 4.
