@@ -5,9 +5,8 @@
  *
  * craftagram Settings.twig
  *
- * @author    Scaramanga Agency
- * @copyright Copyright (c) 2020 Scaramanga Agency
- * @link      https://scaramanga.agency
+ * @author    Joshua Martin
+ * @copyright Copyright (c) 2024 Joshua Martin
  * @package   Craftagram
  */
 #}
@@ -125,9 +124,7 @@
 
         <div data-js="insta-wrapper" class="insta-preview-wrapper">
             {% for item in craftagram.data %}
-                {% if item.media_type == "IMAGE" %}
-                    <img src={{item.media_url}} class="insta-preview" />
-                {% endif %}
+                <img src={{item.media_url}} class="insta-preview" />
             {% endfor %}
         </div>
 

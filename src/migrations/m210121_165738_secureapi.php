@@ -1,12 +1,12 @@
 <?php
 
-namespace scaramangagency\craftagram\migrations;
+namespace jsmrtn\craftagram\migrations;
 
 use Craft;
 use craft\db\Migration;
 
-use scaramangagency\craftagram\Craftagram;
-use scaramangagency\craftagram\records\SettingsRecord as SettingsRecord;
+use jsmrtn\craftagram\Craftagram;
+use jsmrtn\craftagram\records\SettingsRecord as SettingsRecord;
 
 /**
  * m210121_165738_secureapi migration.

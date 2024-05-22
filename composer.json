@@ -1,8 +1,8 @@
 {
-    "name": "scaramangagency/craftagram",
+    "name": "jsmrtn/craftagram",
     "description": "Grab Instagram content through the Instagram Basic Display API",
     "type": "craft-plugin",
-    "version": "2.0.2",
+    "version": "3.0.0",
     "keywords": [
         "craft",
         "cms",
@@ -11,31 +11,30 @@
         "craftagram"
     ],
     "support": {
-        "docs": "https://github.com/scaramangagency/craftagram/blob/master/README.md",
-        "issues": "https://github.com/scaramangagency/craftagram/issues"
+        "docs": "https://github.com/jsmrtn/craftagram/blob/master/README.md",
+        "issues": "https://github.com/jsmrtn/craftagram/issues"
     },
     "license": "proprietary",
     "authors": [
         {
-            "name": "Scaramanga Agency",
-            "homepage": "https://scaramanga.agency"
+            "name": "Joshua Martin"
         }
     ],
     "require": {
-        "craftcms/cms": "^4.0.0"
+        "craftcms/cms": "^4.0.0|^5.0.0"
     },
     "autoload": {
         "psr-4": {
-            "scaramangagency\\craftagram\\": "src/"
+            "jsmrtn\\craftagram\\": "src/"
         }
     },
     "extra": {
         "name": "Craftagram",
         "handle": "craftagram",
-        "changelogUrl": "https://raw.githubusercontent.com/scaramangagency/craftagram/master/CHANGELOG.md",
+        "changelogUrl": "https://raw.githubusercontent.com/jsmrtn/craftagram/master/CHANGELOG.md",
         "components": {
-            "craftagramService": "scaramangagency\\craftagram\\services\\CraftagramService"
+            "craftagramService": "jsmrtn\\craftagram\\services\\CraftagramService"
         },
-        "class": "scaramangagency\\craftagram\\Craftagram"
+        "class": "jsmrtn\\craftagram\\Craftagram"
     }
 }

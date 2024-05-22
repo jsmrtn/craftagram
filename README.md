@@ -16,7 +16,7 @@ To install the plugin, follow these instructions.
 
 2. Then tell Composer to load the plugin:
 
-        composer require scaramangagency/craftagram
+        composer require jsmrtn/craftagram
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for craftagram.
 
@@ -24,21 +24,21 @@ To install the plugin, follow these instructions.
 
 > :warning: Important note on step 6 – your valid OAuth Redirect URI **has** to be the URL for the base site, do not try to use individual multi-site URLs. The base site URL will be appended with a state parameter ensuring that the correct site is targeted on the response from Instagram
 
-1. Go to https://developers.facebook.com, click My Apps, and create a new app. Select _Consumer_ as your app type, and fill out the required information.
-2. Once you have created the app and are in the App Dashboard, navigate to Settings > Basic, scroll the bottom of page, and click Add Platform.
-3. Choose Website, add your website’s URL, and save your changes.
-4. Click 'Add Product' on the left hand side menu, locate the Instagram Basic Display product, and click Set Up to add it to your app.
-5. Click Basic Display under Products > Instagram in the sidebar, scroll to the bottom of the page, then click Create New App, and name your app whatever you like.
+1. Log in to https://developers.facebook.com, and in _All Apps_ click `Create App`.
+2. When asked _What do you want your app to do?_ click `Other`.
+3. Select the `Consumer` app type.
+4. Add a suitable app name and contact email (you can ignore adding a business portfolio).
+5. You will be redirected to your new app, from the dasboard locate the Instagram Basic Display product, and click `Set Up` to add it to your app.
+5. Once redirected, click `Create New App`, and name your app whatever you like.
 6. When presented with the app page, complete each section using the below:
     - **Valid OAuth Redirect URIs** Enter your _Primary Site base URL_, appended with `/actions/craftagram/default/auth` (i.e. https://www.yourwebsite.com/actions/craftagram/default/auth).
     - **Deauthorize Callback URL** and **Data Deletion Request Callback URL** Use the same URL as above.
-    - Ignore **App Review**, as we do not recommend that you publish your app. You can use the app indefinitely in development mode.
     - Save Changes
-7. Navigate to Roles > Roles and scroll down to the Instagram Testers section. Click Add Instagram Testers and enter the name of the Instagram account you're linking up.
-8. Open a new web browser and go to www.instagram.com and sign into your Instagram account that you just invited. Navigate to (Profile Icon) > Settings > Apps and Websites > Tester Invites and accept the invitation.
+7. Scroll down to the Instagram Testers section. Click `Add Instagram Testers`.
+8. Click `Add People`, select `Instagram Tester`, then search for the instagram account you are connecting, then `Add`.
+8. Open a new web browser and go to www.instagram.com and sign into your Instagram account that you just invited. Click `More` > `Settings` > `Website Permisisons` > `Apps and websites` > `Tester Invites` and accept the invitation.
 
-That's it! You won't need any extra setup now. What you will need to do is go to Products > Instagram > Basic Display and scroll down to `Instagram App ID
-` and `Instagram App Secret`, as you'll need to add these in the next step.
+That's it! You won't need any extra setup now. What you will need to do is go to Products > Instagram > Basic Display and scroll down to `Instagram App ID` and `Instagram App Secret`, as you'll need to add these in the next step.
 
 ## Configuring craftagram
 
@@ -54,11 +54,17 @@ Instagram may challenge you with a login screen, so handle that, then click 'Aut
 
 Instagram tokens expire in 60 days, so you'll need to set up a cron job to keep the token alive. The refresh action is `actions/craftagram/default/refresh-token`.
 
-For example, this would run the token refresh every month
+For example, this would run the token refresh every month, for all enabled sites with tokens
 
 ```
 0 0 1 * * /usr/bin/wget -q https://www.yourwebsite.com/actions/craftagram/default/refresh-token >/dev/null 2>&1
 ```
+
+If you just want to update a single site you can add the optional param `siteId`
+
+ ```
+ 0 0 1 * * /usr/bin/wget -q https://www.yourwebsite.com/actions/craftagram/default/refresh-token?siteId=<your siteId> >/dev/null 2>&1
+ ```
 
 If you fail to set up the cron, you can still refresh the token manaully, by going to the settings page, clicking the `Authorise Craft` and following the steps outlined above.
 
@@ -154,27 +160,6 @@ If you're using Craft headless (or generally just need a JSON formatted version 
 
 There is a setting to opt-in to a more secure API endpoint. If you switch it on, you must pass a `Basic Auth` header to access this endpoint, otherwise you will receive an error. The Username and Password should be for an activated Craft user. **Please note** that you must enable the secure endpoint for each site individually.
 
-### Profile Information
-
-> :warning: :warning: :warning:
->
-> This uses the publically available instagram GraphQL API, accessible by adding *?__a=1* to an instagram URL. **The API endpoint is no longer functional, so do not use this feature.** It will be deprecated in a future release.
-
-Used to grab some basic profile information not available natively in the Basic Display API. You can pass in any instagram profile, as this endpoint returns this information regardless of public or private status.
-
-```
-{% set craftagram = craft.craftagram.getProfileMeta("scaramanga_agency") %}
-```
-
-This variable has 4 available fields:
-
-| Field Name |
-| --- |
-| profile_picture |
-| profile_picture_hd |
-| followers |
-| following |
-
 ### Rate Limits
 
 Be conscious you might be subject to rate limits from instagram, so if you're on a high traffic website you might get rate limited. You can read more about rate limits at instagram's [documentation](https://developers.facebook.com/docs/graph-api/overview/rate-limiting#instagram). 
@@ -182,7 +167,3 @@ Be conscious you might be subject to rate limits from instagram, so if you're on
 ### Media Size
 
 The image returned from the API is an immutable size–it used to be you could use modifiers like `large` to get an image at a certain size, but no more. You will need to use a plugin that supports transforming images from remote URL's to resize the images returned from Instagram.
-
-
----
-Brought to you by [Scaramanga Agency](https://scaramanga.agency)

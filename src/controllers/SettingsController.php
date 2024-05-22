@@ -1,10 +1,10 @@
 <?php
 
-namespace scaramangagency\craftagram\controllers;
+namespace jsmrtn\craftagram\controllers;
 
-use scaramangagency\craftagram\Craftagram;
-use scaramangagency\craftagram\services\CraftagramService;
-use scaramangagency\craftagram\records\SettingsRecord as SettingsRecord;
+use jsmrtn\craftagram\Craftagram;
+use jsmrtn\craftagram\services\CraftagramService;
+use jsmrtn\craftagram\records\SettingsRecord as SettingsRecord;
 
 use Craft;
 use craft\web\Controller;
@@ -52,10 +52,6 @@ class SettingsController extends Controller
 
         $settings = Craft::$app->getRequest()->getBodyParam('settings', []);
         $plugin = Craft::$app->getPlugins()->getPlugin('craftagram');
-
-        if ($plugin === null) {
-            throw new NotFoundHttpException('Plugin not found');
-        }
 
         $params = [ 
             'craftagramSiteId' => $settings['siteId']

@@ -3,15 +3,14 @@
  * craftagram plugin for Craft CMS 3.x
  *
  * Grab Instagram content through the Instagram Basic Display API
- *
- * @link      https://scaramanga.agency
- * @copyright Copyright (c) 2020 Scaramanga Agency
+
+ * @copyright Copyright (c) 2024 Joshua Martin
  */
 
-namespace scaramangagency\craftagram\controllers;
+namespace jsmrtn\craftagram\controllers;
 
-use scaramangagency\craftagram\Craftagram;
-use scaramangagency\craftagram\services\CraftagramService;
+use jsmrtn\craftagram\Craftagram;
+use jsmrtn\craftagram\services\CraftagramService;
 
 use Craft;
 use craft\web\Controller;
@@ -19,7 +18,7 @@ use craft\helpers\UrlHelper;
 use yii\web\UnauthorizedHttpException;
 
 /**
- * @author    Scaramanga Agency
+ * @author    Joshua Martin
  * @package   Craftagram
  * @since     1.0.0
  */
@@ -39,11 +38,19 @@ class DefaultController extends Controller {
     // =========================================================================
     
     /**
-     * Refresh the instragram token
-     *
-     * @return bool
-     */
-    public function actionRefreshToken() {
+      * Refresh the instragram token for all enabled sites
+      * or for a specific one if param siteId is given
+      *
+      * @param  integer $siteId siteId to refresh the long access token for
+      * @return bool true if successful, otherwise false
+      */
+      public function actionRefreshToken() {
+        $siteId = Craft::$app->getRequest()->getParam('siteId', null);
+
+        if ($siteId) {
+            return Craftagram::$plugin->craftagramService->refreshTokenForSiteId((int) $siteId);
+        }
+
         return Craftagram::$plugin->craftagramService->refreshToken();
     }
 

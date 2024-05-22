@@ -3,16 +3,15 @@
  * craftagram plugin for Craft CMS 3.x
  *
  * Grab Instagram content through the Instagram Basic Display API
- *
- * @link      https://scaramanga.agency
- * @copyright Copyright (c) 2020 Scaramanga Agency
+
+ * @copyright Copyright (c) 2024 Joshua Martin
  */
 
-namespace scaramangagency\craftagram;
+namespace jsmrtn\craftagram;
 
-use scaramangagency\craftagram\services\CraftagramService as CraftagramServiceService;
-use scaramangagency\craftagram\variables\CraftagramVariable;
-use scaramangagency\craftagram\models\Settings;
+use jsmrtn\craftagram\services\CraftagramService as CraftagramServiceService;
+use jsmrtn\craftagram\variables\CraftagramVariable;
+use jsmrtn\craftagram\models\Settings;
 
 use Craft;
 use craft\base\Plugin;
@@ -33,7 +32,7 @@ use yii\base\Event;
 /**
  * Class Craftagram
  *
- * @author    Scaramanga Agency
+ * @author    Joshua Martin
  * @package   Craftagram
  * @since     1.0.0
  *
