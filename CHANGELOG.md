@@ -1,5 +1,13 @@
 # craftagram Changelog
 
+## 4.0.0 - 2024-10-22
+
+This update removes access to the Basic Display API, which is [being switched off on 4th December](https://developers.facebook.com/blog/post/2024/09/04/update-on-instagram-basic-display-api/).
+
+This is marked as breaking for two-fold reasons, as it doesn't break the core API at all.
+- You will need to re-create your apps in line with the updated requirements from Meta
+- It gets your attention to better nudge you to upgrade
+
 ## 3.0.0 - 2024-05-22
 ### Added
 - Namespace to new plugin owner. The plugin now lives under `@jsmrtn/craftagram` rather than `@scaramangagency/craftagram`.
