@@ -41,7 +41,7 @@ If you do opt to switch to a live app and send for app review, please note that 
 
 ### Pre-requisites
 
-#### Instagram Business Account
+#### Instagram Business Account
 
 To create an app with the Instagram API with Instagram Login, you need an Instagram business account. It's a simple process, one that you can do on personal accounts, too, without causing any damage.
 
@@ -50,7 +50,7 @@ To create an app with the Instagram API with Instagram Login, you need an Instag
 3. Pick a category that best describes your business, then select Business.
 4. All done. You have a business account.
 
-#### Meta Developer
+#### Meta Developer
 
 You must be a registered as a meta developer before you can integrate with their APIs. You can follow this process [here](https://developers.facebook.com/docs/development/register).
 
