@@ -1,8 +1,8 @@
 <?php
 /**
- * craftagram plugin for Craft CMS 3.x
+ * craftagram plugin for Craft CMS 4.x / 5.x
  *
- * Grab Instagram content through the Instagram Basic Display API
+ * Grab Instagram content through the Instagram API
 
  * @copyright Copyright (c) 2024 Joshua Martin
  */
@@ -28,6 +28,7 @@ class Settings extends Model
     public $longAccessToken;
     public $craftagramSiteId;
     public $secureApiEndpoint;
+    public $embedUrl;
 
     // Public Methods
     // =========================================================================
@@ -37,7 +38,7 @@ class Settings extends Model
      */
     public function rules(): array {
         return [
-            [['appId', 'appSecret'], 'required'],
+            [['appId', 'appSecret', 'embedUrl'], 'required'],
             ['longAccessToken', 'string'],
             ['craftagramSiteId', 'integer'],
             ['secureApiEndpoint', 'boolean']

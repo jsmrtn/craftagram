@@ -1,6 +1,6 @@
 {
     "pluginName": "craftagram",
-    "pluginDescription": "Grab Instagram content through the Instagram Basic Display API",
+    "pluginDescription": "Grab Instagram content through the Instagram API",
     "pluginVersion": "1.0.0",
     "pluginAuthorName": "Joshua Martin",
     "pluginVendorName": "jsmrtn",

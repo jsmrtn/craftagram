@@ -1,8 +1,8 @@
 <?php
 /**
- * craftagram plugin for Craft CMS 3.x
+ * craftagram plugin for Craft CMS 4.x / 5.x
  *
- * Grab Instagram content through the Instagram Basic Display API
+ * Grab Instagram content through the Instagram API
 
  * @copyright Copyright (c) 2024 Joshua Martin
  */
@@ -53,20 +53,6 @@ class DefaultController extends Controller {
 
         return Craftagram::$plugin->craftagramService->refreshToken();
     }
-
-    /**
-     * Redirect user to instagram for authentication
-     *
-     * @return Response
-     */
-    public function actionHandleAuth($site_id, $client_id) {
-        $url = rtrim(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl), '/'); 
-        $appId = Craft::parseEnv($client_id);
-
-        Craft::$app->getResponse()->redirect('https://api.instagram.com/oauth/authorize?client_id='.$appId.'&scope=user_profile,user_media&response_type=code&redirect_uri='.$url.'/actions/craftagram/default/auth&state='.$site_id)->send();
-        exit;
-    }
-
     /**
      * Redirect user to craftagram settings page
      *

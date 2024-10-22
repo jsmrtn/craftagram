@@ -1,8 +1,8 @@
 <?php
 /**
- * craftagram plugin for Craft CMS 3.x
+ * craftagram plugin for Craft CMS 4.x / 5.x
  *
- * Grab Instagram content through the Instagram Basic Display API
+ * Grab Instagram content through the Instagram API
 
  * @copyright Copyright (c) 2024 Joshua Martin
  */
@@ -202,8 +202,94 @@ class CraftagramService extends Component {
         return $token;
     }
 
+     /**
+     * Get instagram profile information
+     *
+     * @return string|null
+     */
+    public function getInstagramProfileInformation($siteId) {
+
+        if ($siteId == 0) {
+            $siteId = Craft::$app->sites->primarySite->id;
+        }
+
+        $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
+
+        if (!$longAccessTokenRecord) {
+            return false;
+        }
+
+        $ch = curl_init();
+
+        $params = [
+            'fields' => 'id,user_id,username,name,account_type,profile_picture_url,followers_count,follows_count,media_count',
+            'access_token' => $longAccessTokenRecord,
+        ];
+
+        curl_setopt($ch, CURLOPT_URL,'https://graph.instagram.com/v21.0/me?'.http_build_query($params));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $res = curl_exec($ch);
+        curl_close($ch);
+
+        $res = json_decode($res);
+
+        if (!isset($res)) {
+            Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res));
+        }
+
+        return (isset($res) ? $res : null);
+    }
+
     /**
-     * Get instagram feed
+     * Get instagram feed media IDs
+     *
+     * @return string|null
+     */
+    public function getInstragramMediaIDs($limit, $siteId, $after) {
+
+        if ($siteId == 0) {
+            $siteId = Craft::$app->sites->primarySite->id;
+        }
+
+        $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
+
+        if (!$longAccessTokenRecord) {
+            return false;
+        }
+
+        $IG_ID = Craftagram::$plugin->craftagramService->getInstagramProfileInformation($siteId)->user_id;
+
+        $ch = curl_init();
+
+        $params = [
+            'access_token' => $longAccessTokenRecord,
+            'limit' => $limit
+        ];
+
+        if ($after != '') {
+            $params['after'] = $after;
+        }
+
+        curl_setopt($ch, CURLOPT_URL,'https://graph.instagram.com/v21.0/'.$IG_ID.'/media?'.http_build_query($params));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $res = curl_exec($ch);
+        curl_close($ch);
+
+        $res = json_decode($res);
+
+        if (!isset($res->data)) {
+            Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res));
+        }
+
+        return (isset($res->data) ? $res : null);
+    }
+
+    /**
+     * Get instagram feed media IDs
      *
      * @return string|null
      */
@@ -219,33 +305,40 @@ class CraftagramService extends Component {
             return false;
         }
 
-        $ch = curl_init();
+        $mediaIDs = Craftagram::$plugin->craftagramService->getInstragramMediaIDs($limit, $siteId, $after);
 
-        $params = [
-            'fields' => 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username,children{media_type,media_url,thumbnail_url}',
-            'access_token' => $longAccessTokenRecord,
-            'limit' => $limit
-        ];
+        $groupedMediaRecords = [];
 
+        foreach($mediaIDs->data as $mediaID) {
+            $ch = curl_init();
 
-        if ($after != '') {
-            $params['after'] = $after;
+            $params = [
+                'fields' => 'caption,comments_count,id,is_shared_to_feed,media_product_type,media_type,media_url,owner,permalink,shortcode,thumbnail_url,timestamp',
+                'access_token' => $longAccessTokenRecord
+            ];
+
+            if ($after != '') {
+                $params['after'] = $after;
+            }
+
+            curl_setopt($ch, CURLOPT_URL,'https://graph.instagram.com/v21.0/'.$mediaID->id.'?'.http_build_query($params));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+            $res = curl_exec($ch);
+            curl_close($ch);
+
+            if (!isset($res->id)) {
+                Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res));
+            }
+
+            $groupedMediaRecords['data'][] = json_decode($res);
         }
 
-        curl_setopt($ch, CURLOPT_URL,'https://graph.instagram.com/me/media?'.http_build_query($params));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $groupedMediaRecords['paging']['cursors']['before'] = $mediaIDs->paging->cursors->before;
+        $groupedMediaRecords['paging']['cursors']['after'] = $mediaIDs->paging->cursors->after;
 
-        $res = curl_exec($ch);
-        curl_close($ch);
-
-        $res = json_decode($res);
-
-        if (!isset($res->data)) {
-            Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res));
-        }
-
-        return (isset($res->data) ? $res : null);
+        return $groupedMediaRecords;
     }
 
     /**

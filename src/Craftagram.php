@@ -1,8 +1,8 @@
 <?php
 /**
- * craftagram plugin for Craft CMS 3.x
+ * craftagram plugin for Craft CMS 4.x / 5.x
  *
- * Grab Instagram content through the Instagram Basic Display API
+ * Grab Instagram content through the Instagram API
 
  * @copyright Copyright (c) 2024 Joshua Martin
  */
@@ -53,7 +53,7 @@ class Craftagram extends Plugin {
     /**
      * @var string
      */
-    public string $schemaVersion = '2.0.0';
+    public string $schemaVersion = '3.0.0';
 
     /**
      * @var bool

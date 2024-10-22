@@ -1,7 +1,7 @@
 {# @var craft \craft\web\twig\variables\CraftVariable #}
 {#
 /**
- * craftagram plugin for Craft CMS 3.x
+ * craftagram plugin for Craft CMS 4.x / 5.x
  *
  * craftagram Settings.twig
  *
@@ -54,10 +54,7 @@
 {% endblock %}
 
 {% set content %}
-    <div class="hidden" data-js="auth-button">
-        <a data-js="auth-app" class="btn submit">Authorise Craft</a>
-        <hr />
-    </div>
+
 
     <form method="post">
 
@@ -65,6 +62,11 @@
         <input type="hidden" name="action" value="craftagram/settings/save-plugin-settings">
 
         {% namespace "settings" %}
+            <div class="hidden" data-js="auth-button">
+                <a href="{{ settings.embedUrl }}&state={{siteId}}" class="btn submit">Authorise Craft</a>
+                <hr />
+            </div>
+
             {{ forms.autosuggestField({
                 label: 'Instagram App ID',
                 instructions: 'Enter your App ID here. This is the Instagram App ID and **not** the Facebook App ID. If you\'re unsure, check the README.',
@@ -87,6 +89,15 @@
                 suggestions: craft.cp.getEnvSuggestions(),
                 suggestEnvVars: true,
                 errors: settings.getErrors('appSecret')})
+            }}
+
+            {{ forms.textField({
+                label: 'Instagram Embed URL',
+                instructions: 'Enter your Embed URL from Instagram here',
+                id: 'embedUrl',
+                name: 'embedUrl',
+                required: 'required',
+                value: settings['embedUrl'] })
             }}
 
             {{ forms.textField({
@@ -121,7 +132,6 @@
         <hr />
 
         <h2>Preview</h2>
-
         <div data-js="insta-wrapper" class="insta-preview-wrapper">
             {% for item in craftagram.data %}
                 <img src={{item.media_url}} class="insta-preview" />
@@ -149,7 +159,7 @@
             window.location.href = '{{ siteUrl }}/actions/craftagram/default/handle-auth?site_id={{ settings["craftagramSiteId"] }}&client_id=' + $appId;
         });
 
-        if ($('#settings-appId').val() != '') {
+        if ($('#settings-embedUrl').val() != '') {
             $('[data-js="auth-button"]').toggleClass('hidden');
         }
     });

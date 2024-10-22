@@ -65,6 +65,7 @@ class SettingsController extends Controller
 
         $longAccessTokenRecord->setAttribute('appId', $settings['appId']);
         $longAccessTokenRecord->setAttribute('appSecret', $settings['appSecret']);
+        $longAccessTokenRecord->setAttribute('embedUrl', $settings['embedUrl']);
         $longAccessTokenRecord->setAttribute('longAccessToken', $settings['longAccessToken']);
         $longAccessTokenRecord->setAttribute('craftagramSiteId', $settings['siteId']);
         $longAccessTokenRecord->setAttribute('secureApiEndpoint', $settings['secureApiEndpoint']);

@@ -1,8 +1,8 @@
 <?php
 /**
- * craftagram plugin for Craft CMS 3.x
+ * craftagram plugin for Craft CMS 4.x / 5.x
  *
- * Grab Instagram content through the Instagram Basic Display API
+ * Grab Instagram content through the Instagram API
 
  * @copyright Copyright (c) 2024 Joshua Martin
  */
