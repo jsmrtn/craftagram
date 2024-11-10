@@ -131,7 +131,8 @@
     {% if craftagram|length %}
         <hr />
 
-        <h2>Preview</h2>
+        <h2>Previews</h2>
+        <pre>craft.craftagram.getInstagramFeed(10, siteId)</pre>
         <div data-js="insta-wrapper" class="insta-preview-wrapper">
             {% for item in craftagram.data %}
                 <img src={{item.media_url}} class="insta-preview" />
@@ -139,6 +140,11 @@
         </div>
 
         <a data-after="{{ craftagram.paging.cursors.after }}" data-js="load-more" class="btn">Load more</a>
+
+        <hr />
+        <pre>craft.craftagram.getProfileInformation()</pre>
+        {% set profileInfo = craft.craftagram.getProfileInformation() %}
+        {{ dump(profileInfo) }}
     {% endif %}
 
 {% endset %}
