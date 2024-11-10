@@ -1,6 +1,6 @@
 # craftagram Changelog
 
-## 4.0.0 - 2024-10-22
+## 4.0.0 - 2024-11-10
 
 **⚠⚠⚠ The Basic Display API is being switched off on 4th December ⚠⚠⚠**
 
