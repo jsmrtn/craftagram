@@ -2,11 +2,13 @@
 
 ## 4.0.0 - 2024-10-22
 
+**⚠⚠⚠ The Basic Display API is being switched off on 4th December ⚠⚠⚠**
+
 This update removes access to the Basic Display API, which is [being switched off on 4th December](https://developers.facebook.com/blog/post/2024/09/04/update-on-instagram-basic-display-api/).
 
-This is marked as breaking for two-fold reasons, as it doesn't break the core API at all.
-- You will need to re-create your apps in line with the updated requirements from Meta
-- It gets your attention to better nudge you to upgrade
+This upgrade will **break** your current integrations, as it removes any calls to the Basic Display API. It would be best to recreate your app(s) and have the correct App ID(s) / Secret(s) and Embed URL(s) **prior** to upgrading the plugin, to allow for a smooth transition period.
+
+This plugin marked as breaking for the above reason. It doesn't, however, break the core API at all – once you have updated your information in settings, the plugin will continue to work as it previously has.
 
 ## 3.0.0 - 2024-05-22
 ### Added

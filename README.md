@@ -26,8 +26,8 @@ This plugin only presently supports the `Instagram API with Instagram Login` rou
 
 0. Run thorough the `Pre-requisites` list below.
 1. Log in to [https://developers.facebook.com](https://developers.facebook.com), and in All Apps click Create App.
-2. When asked if you want to connect a business portfolio, select `I don't want to connect a business portfolio yet`.
-3. When asked what you want your app to do, select `Other`.
+2. When asked what you want your app to do, select `Other`.
+3. If asked if you want to connect a business portfolio, select `I don't want to connect a business portfolio yet`.
 4. Select `Business` as your app type.
 5. Add a suitable app name and contact email (you can ignore adding a business portfolio).
 6. You will be redirected to your new app, from the dasboard locate the Instagram product, and click `Set Up` to add it to your app.
@@ -53,8 +53,6 @@ To create an app with the Instagram API with Instagram Login, you need an Instag
 #### Meta Developer
 
 You must be a registered as a meta developer before you can integrate with their APIs. You can follow this process [here](https://developers.facebook.com/docs/development/register).
-
-
 
 ## Configuring craftagram
 
@@ -113,15 +111,15 @@ There are two parameters available to the variable, `limit` and `siteId`. The de
 
 The plugin returns all fields that are [provided from the API endpoint.](https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-media#fields) provided from the API endpoint.
 
-### Profile Information
+### Profile Information
 
 You get first-class support for basic profile information for the connected user.
 
 ```
-{% set craftagram = craft.craftagram.getInstagramProfileInformation() %}
+{% set craftagram = craft.craftagram.getProfileInformation() %}
 ```
 
-The plugin returns all fields that are [provided fro the API endpoint.](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/get-started#fields)
+The plugin returns all fields that are [provided from the API endpoint](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/get-started#fields) as a JSON object.
 
 ### Pagination
 
