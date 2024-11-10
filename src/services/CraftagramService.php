@@ -121,7 +121,7 @@ class CraftagramService extends Component {
             $expires = json_decode($res)->expires_in;
             Craftagram::$plugin->log('Successfully refreshed authentication token. Expires in ' . $expires);
         } catch (\Exception $e) {
-            Craftagram::$plugin->log('Failed to refresh authentication token. Error: ' . $res, LogLevel:ERROR);
+            Craftagram::$plugin->log('Failed to refresh authentication token. Error: ' . $res);
             return false;
         }
 
@@ -259,6 +259,12 @@ class CraftagramService extends Component {
             return false;
         }
 
+        $instaProfileInfo = Craftagram::$plugin->craftagramService->getInstagramProfileInformation($siteId);
+
+        if (property_exists($instaProfileInfo, 'error')) {
+            return false;
+        }
+
         $IG_ID = Craftagram::$plugin->craftagramService->getInstagramProfileInformation($siteId)->user_id;
 
         $ch = curl_init();
@@ -306,6 +312,10 @@ class CraftagramService extends Component {
         }
 
         $mediaIDs = Craftagram::$plugin->craftagramService->getInstragramMediaIDs($limit, $siteId, $after);
+
+        if (!$mediaIDs) {
+            return false;
+        }
 
         $groupedMediaRecords = [];
 
