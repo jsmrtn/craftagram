@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 4.0.1 - 2024-11-18
+### Fixed
+- Increased coverage of debugging to facilitate better error detection
+
 ## 4.0.0 - 2024-11-10
 
 **⚠⚠⚠ The Basic Display API is being switched off on 4th December ⚠⚠⚠**
