@@ -16,7 +16,6 @@ use Craft;
 use craft\base\Component;
 use craft\services\Plugins;
 use craft\helpers\Db;
-use Psr\Log\LogLevel;
 
 class CraftagramService extends Component {
 
@@ -34,7 +33,7 @@ class CraftagramService extends Component {
         $longAccessTokenRecord = SettingsRecord::findOne($params);
 
         if (!$longAccessTokenRecord) {
-            Craftagram::$plugin->log('An access token has not been obtained from Instagram');
+            Craftagram::info('getLongAccessTokenSetting:37: An access token has not been obtained from Instagram', 'craftagram');
             return false;
         }
 
@@ -59,7 +58,7 @@ class CraftagramService extends Component {
         $isSecured = SettingsRecord::findOne($params);
 
         if (!$isSecured) {
-            Craftagram::$plugin->log('This site does not have a linked instagram account');
+            Craftagram::info('checkIfSecured:62: This site does not have a linked instagram account', 'craftagram');
             return false;
         }
 
@@ -100,6 +99,7 @@ class CraftagramService extends Component {
         $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
 
         if (!$longAccessTokenRecord) {
+            Craftagram::info('refreshTokenForSiteId:103: No long access token record', 'craftagram');
             return false;
         }
 
@@ -119,9 +119,9 @@ class CraftagramService extends Component {
 
         try {
             $expires = json_decode($res)->expires_in;
-            Craftagram::$plugin->log('Successfully refreshed authentication token. Expires in ' . $expires);
+            Craftagram::info('refreshTokenForSiteId:123: Successfully refreshed authentication token. Expires in ' . $expires, 'craftagram');
         } catch (\Exception $e) {
-            Craftagram::$plugin->log('Failed to refresh authentication token. Error: ' . $res);
+            Craftagram::info('refreshTokenForSiteId:125: Failed to refresh authentication token. Error: ' . $res, 'craftagram');
             return false;
         }
 
@@ -154,11 +154,15 @@ class CraftagramService extends Component {
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
         $res = curl_exec($ch);
         curl_close($ch);
 
-        $shortAccessToken = json_decode($res)->access_token;
+        try {
+            $shortAccessToken = json_decode($res)->access_token;
+        } catch (\Exception $e) {
+            Craftagram::info('getShortAccessToken:164: No short access token granted. Error: ' . $res, 'craftagram');
+            return false;
+        }
 
         return Craftagram::$plugin->craftagramService->getLongAccessToken($shortAccessToken, $siteId, $longAccessTokenRecord->appSecret);
     }
@@ -184,7 +188,12 @@ class CraftagramService extends Component {
         $res = curl_exec($ch);
         curl_close($ch);
 
-        $token = json_decode($res)->access_token;
+        try {
+            $token = json_decode($res)->access_token;
+        } catch (\Exception $e) {
+            Craftagram::info('getLongAccessToken:195: No long access token granted. Error: ' . $res, 'craftagram');
+            return false;
+        }
 
         $plugin = Craft::$app->getPlugins()->getPlugin('craftagram');
 
@@ -196,10 +205,15 @@ class CraftagramService extends Component {
             $longAccessTokenRecord = SettingsRecord::findOne($params);
 
             $longAccessTokenRecord->setAttribute('longAccessToken', $token);
-            $longAccessTokenRecord->save();
+            if ($longAccessTokenRecord->save()) {
+                return $token;
+            } else {
+                Craftagram::info('getLongAccessToken:212: Failed to save long access token. Error: ' . $res, 'craftagram');
+                return false;
+            }
         }
 
-        return $token;
+        return false;
     }
 
      /**
@@ -216,6 +230,7 @@ class CraftagramService extends Component {
         $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
 
         if (!$longAccessTokenRecord) {
+            Craftagram::info('getInstagramProfileInformation:234: Failed to fetch $longAccessTokenRecord', 'craftagram');
             return false;
         }
 
@@ -236,7 +251,7 @@ class CraftagramService extends Component {
         $res = json_decode($res);
 
         if (!isset($res)) {
-            Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res));
+            Craftagram::info('getInstagramProfileInformation:255: Failed to get data. Response from Instagram: ' . json_encode($res), 'craftagram');
         }
 
         return (isset($res) ? $res : null);
@@ -256,12 +271,14 @@ class CraftagramService extends Component {
         $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
 
         if (!$longAccessTokenRecord) {
+            Craftagram::info('getInstagramMediaIDs:258: Failed to fetch $longAccessTokenRecord', 'craftagram');
             return false;
         }
 
         $instaProfileInfo = Craftagram::$plugin->craftagramService->getInstagramProfileInformation($siteId);
 
         if (property_exists($instaProfileInfo, 'error')) {
+            Craftagram::info('getInstagramMediaIDs:265: $instaProfileInfo error: ' . json_encode($instaProfileInfo), 'craftagram');
             return false;
         }
 
@@ -288,7 +305,7 @@ class CraftagramService extends Component {
         $res = json_decode($res);
 
         if (!isset($res->data)) {
-            Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res));
+            Craftagram::info('getInstagramMediaIDs:292: Failed to get data. Response from Instagram: ' . json_encode($res), 'craftagram');
         }
 
         return (isset($res->data) ? $res : null);
@@ -308,12 +325,14 @@ class CraftagramService extends Component {
         $longAccessTokenRecord = Craftagram::$plugin->craftagramService->getLongAccessTokenSetting($siteId);
 
         if (!$longAccessTokenRecord) {
+            Craftagram::info('getInstagramFeed:312: Failed to get $longAccessTokenRecord', 'craftagram');
             return false;
         }
 
         $mediaIDs = Craftagram::$plugin->craftagramService->getInstragramMediaIDs($limit, $siteId, $after);
 
         if (!$mediaIDs) {
+            Craftagram::info('getInstagramFeed:319: Failed to get $mediaIDs', 'craftagram');
             return false;
         }
 
@@ -339,7 +358,7 @@ class CraftagramService extends Component {
             curl_close($ch);
 
             if (!isset($res->id)) {
-                Craftagram::$plugin->log('Failed to get data. Response from Instagram: ' . json_encode($res));
+                Craftagram::info('getInstagramFeed:345: Failed to get data for this $mediaID. Response from Instagram: ' . json_encode($res), 'craftagram');
             }
 
             $groupedMediaRecords['data'][] = json_decode($res);
@@ -367,10 +386,12 @@ class CraftagramService extends Component {
         $user = Craft::$app->getUsers()->getUserByUsernameOrEmail(Db::escapeParam($username));
 
         if (!$user) {
+            Craftagram::info('handleAuthentication:373: No user', 'craftagram');
             return false;
         }
 
         if (!$user->authenticate($password)) {
+            Craftagram::info('handleAuthentication:378: Failed to authenticate', 'craftagram');
             return false;
         }
 

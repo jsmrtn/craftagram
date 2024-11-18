@@ -133,11 +133,11 @@ class Craftagram extends Plugin {
     }
 
     /**
-     * Logs a message
+     * Logs an informational message to our custom log target.
      */
-    public function log(string $message, string $type = Logger::LEVEL_INFO): void
+    public static function info(string $message): void
     {
-        Craft::getLogger()->log($message, $type, 'craftagram');
+        Craft::info($message, 'craftagram');
     }
 
     public function afterSaveSettings(): void {
