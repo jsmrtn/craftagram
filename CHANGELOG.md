@@ -1,5 +1,9 @@
 # craftagram Changelog
 
+## 4.0.2 - 2024-11-19
+### Fixed
+- Gracefully fail if instagram does not return any media IDs
+
 ## 4.0.1 - 2024-11-18
 ### Fixed
 - Increased coverage of debugging to facilitate better error detection
