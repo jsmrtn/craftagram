@@ -336,6 +336,11 @@ class CraftagramService extends Component {
             return false;
         }
 
+        if (sizeof($mediaIDs->data) === 0) {
+            Craftagram::info('getInstagramFeed:319: No data in $mediaIDs', 'craftagram');
+            return false;
+        }
+
         $groupedMediaRecords = [];
 
         foreach($mediaIDs->data as $mediaID) {
