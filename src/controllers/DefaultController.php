@@ -53,6 +53,20 @@ class DefaultController extends Controller {
 
         return Craftagram::$plugin->craftagramService->refreshToken();
     }
+
+    /**
+     * Redirect user to instagram for authentication
+     *
+     * @return Response
+     */
+    public function actionHandleAuth($site_id, $client_id) {
+        $url = rtrim(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl), '/'); 
+        $appId = Craft::parseEnv($client_id);
+
+        Craft::$app->getResponse()->redirect('https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id='.$appId.'&redirect_uri='.$url.'/actions/craftagram/default/auth&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments%2Cinstagram_business_content_publish&state='.$site_id)->send();
+        exit;
+    }
+
     /**
      * Redirect user to craftagram settings page
      *

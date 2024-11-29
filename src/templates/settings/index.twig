@@ -63,7 +63,7 @@
 
         {% namespace "settings" %}
             <div class="hidden" data-js="auth-button">
-                <a href="{{ settings.embedUrl }}&state={{siteId}}" class="btn submit">Authorise Craft</a>
+                <a data-js="auth-app" class="btn submit">Authorise Craft</a>
                 <hr />
             </div>
 
@@ -89,15 +89,6 @@
                 suggestions: craft.cp.getEnvSuggestions(),
                 suggestEnvVars: true,
                 errors: settings.getErrors('appSecret')})
-            }}
-
-            {{ forms.textField({
-                label: 'Instagram Embed URL',
-                instructions: 'Enter your Embed URL from Instagram here',
-                id: 'embedUrl',
-                name: 'embedUrl',
-                required: 'required',
-                value: settings['embedUrl'] })
             }}
 
             {{ forms.textField({
@@ -165,7 +156,7 @@
             window.location.href = '{{ siteUrl }}/actions/craftagram/default/handle-auth?site_id={{ settings["craftagramSiteId"] }}&client_id=' + $appId;
         });
 
-        if ($('#settings-embedUrl').val() != '') {
+        if ($('#settings-appId').val() != '') {
             $('[data-js="auth-button"]').toggleClass('hidden');
         }
     });

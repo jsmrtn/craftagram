@@ -33,7 +33,7 @@ This plugin only presently supports the `Instagram API with Instagram Login` rou
 6. You will be redirected to your new app, from the dasboard locate the Instagram product, and click `Set Up` to add it to your app.
 7. Click `Add account` under _Generate access tokens_, you will be prompted to link your instagram account. You will note it specifies your personal account will be converted to a professional account automatically, if it isn't already. You can select either `Business` or `Creator`, depending on your use case.
 8. Enter your _Primary Site base URL_, appended with `/actions/craftagram/default/auth` (i.e. https://www.yourwebsite.com/actions/craftagram/default/auth) into `Set up Instagram business login`.
-9. Copy `Embed URL`, `Instagram app ID` and `Instagram app secret` for use in `Configuring craftagram` below.
+9. Copy `Instagram app ID` and `Instagram app secret` for use in `Configuring craftagram` below.
 
 You do not have to fill out webhooks, as there is no functionality avaialble for webhooks in this plugin. Likewise, you can likely skip app review as generally usage of this plugin is for individual Instagram businesses and not client solutions. Finally, it should be possible to leave your app in Development mode, rather than switching it live. 
 
@@ -56,7 +56,7 @@ You must be a registered as a meta developer before you can integrate with their
 
 ## Configuring craftagram
 
-Go to the settings page for `craftagram` and enter your `App ID`, `App Secret` and `Embed URL` from the steps above into the required boxes, and hit 'Save'. When the page refreshes, you'll see there's a new button `Authorise Craft`. Click that button to go to instagram to complete the authorisation procedure.
+Go to the settings page for `craftagram` and enter your `App ID` and `App Secret` from the steps above into the required boxes, and hit 'Save'. When the page refreshes, you'll see there's a new button `Authorise Craft`. Click that button to go to instagram to complete the authorisation procedure.
 
 > Tip: The App ID and App Secret settings can be set to environment variables. See Environmental Configuration in the Craft docs to learn more about that.
 

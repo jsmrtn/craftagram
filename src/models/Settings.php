@@ -28,7 +28,6 @@ class Settings extends Model
     public $longAccessToken;
     public $craftagramSiteId;
     public $secureApiEndpoint;
-    public $embedUrl;
 
     // Public Methods
     // =========================================================================
@@ -38,7 +37,7 @@ class Settings extends Model
      */
     public function rules(): array {
         return [
-            [['appId', 'appSecret', 'embedUrl'], 'required'],
+            [['appId', 'appSecret'], 'required'],
             ['longAccessToken', 'string'],
             ['craftagramSiteId', 'integer'],
             ['secureApiEndpoint', 'boolean']
