@@ -2,6 +2,9 @@
 
 Grab Instagram content through the Instagram API with Instagram Login.
 
+> :warning: Upgrading from 3.0.0? :warning:
+> Meta removed the Basic Display API on 4th December 2024. You will need to create a brand new app per the steps below, rather than repurposing your existing app.
+
 ## Requirements
 
 This plugin requires Craft CMS 4.0.0 or later.
