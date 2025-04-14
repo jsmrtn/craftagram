@@ -90,7 +90,7 @@ If you fail to set up the cron, you can still refresh the token manaully, by goi
 
 ## Using craftagram
 
-Using the plugin is pretty simple
+Using the plugin is pretty simple, for example, for the `IMAGE` or `VIDEO` `media_type`, you could do
 
 ```
 {% set craftagram = craft.craftagram.getInstagramFeed() %}
