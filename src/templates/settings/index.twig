@@ -125,7 +125,7 @@
         <h2>Previews</h2>
         <pre>craft.craftagram.getInstagramFeed(10, siteId)</pre>
         <div data-js="insta-wrapper" class="insta-preview-wrapper">
-            {% for item in craftagram.data %}
+            {% for item in craftagram.data if item.media_type == "IMAGE" %}
                 <img src={{item.media_url}} class="insta-preview" />
             {% endfor %}
         </div>
