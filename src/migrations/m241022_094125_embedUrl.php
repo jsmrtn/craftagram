@@ -20,7 +20,7 @@ class m241022_094125_embedUrl extends Migration
             $this->addColumn(
                 '{{%craftagram_settings}}',
                 'embedUrl',
-                'text AFTER longAccessToken'
+                'text'
             );
         }
     }
