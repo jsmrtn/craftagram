@@ -1,5 +1,11 @@
 # craftagram Changelog
 
+## 4.2.1 - 2025-08-08
+
+### Fixed
+
+- Fix #89
+
 ## 4.2.0 - 2025-07-29
 ### Added
 - `like_count` is returned as part of the instagram feed API result.
