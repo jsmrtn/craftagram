@@ -1,5 +1,11 @@
 # craftagram Changelog
 
+## 4.2.2 - 2025-09-10
+
+### Fixed
+
+- Fix #91
+
 ## 4.2.1 - 2025-08-08
 
 ### Fixed
