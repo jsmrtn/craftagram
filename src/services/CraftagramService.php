@@ -277,8 +277,8 @@ class CraftagramService extends Component {
 
         $instaProfileInfo = Craftagram::$plugin->craftagramService->getInstagramProfileInformation($siteId);
 
-        if (property_exists($instaProfileInfo, 'error')) {
-            Craftagram::info('getInstagramMediaIDs:265: $instaProfileInfo error: ' . json_encode($instaProfileInfo), 'craftagram');
+        if (!$instaProfileInfo) {
+            Craftagram::info('getInstagramMediaIDs:265: Failed to get profile information from Instagram', 'craftagram');
             return false;
         }
 
