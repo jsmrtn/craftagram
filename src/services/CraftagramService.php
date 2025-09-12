@@ -282,7 +282,12 @@ class CraftagramService extends Component {
             return false;
         }
 
-        $IG_ID = Craftagram::$plugin->craftagramService->getInstagramProfileInformation($siteId)->user_id;
+        if (!property_exists($instaProfileInfo, 'user_id')) {
+            Craftagram::info('getInstagramMediaIDs:265: Failed to get profile information from Instagram', 'craftagram');
+            return false;
+        }
+
+        $IG_ID = $instaProfileInfo->user_id;
 
         $ch = curl_init();
 
