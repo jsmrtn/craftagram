@@ -367,11 +367,13 @@ class CraftagramService extends Component {
             $res = curl_exec($ch);
             curl_close($ch);
 
-            if (!isset($res->id)) {
-                Craftagram::info('getInstagramFeed:345: Failed to get data for this $mediaID. Response from Instagram: ' . json_encode($res), 'craftagram');
+            $data = json_decode($res);
+
+            if (!isset($data->id)) {
+                Craftagram::info('getInstagramFeed:345: Failed to get data for this $mediaID. Response from Instagram: ' . $res, 'craftagram');
             }
 
-            $groupedMediaRecords['data'][] = json_decode($res);
+            $groupedMediaRecords['data'][] = $data;
         }
 
         $groupedMediaRecords['paging']['cursors']['before'] = $mediaIDs->paging->cursors->before;
