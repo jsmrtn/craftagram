@@ -166,9 +166,7 @@
     {% if settings['longAccessToken'] != "" %}
         $("[data-js=load-more]").click(function(e) {
             e.preventDefault();
-            $.get(Craft.getActionUrl("craftagram/default/get-next-page", { siteId: '{{ siteId }}', limit: 10, url: $(this).data('after') }), function(res) {
-                data = $.parseJSON(res);
-
+            $.getJSON(Craft.getActionUrl("craftagram/default/get-next-page", { siteId: '{{ siteId }}', limit: 10, url: $(this).data('after') }), function(data) {
                 $.each(data["data"], function() {
                     if ($(this)[0]["media_type"] == "IMAGE") {
                         $("[data-js='insta-wrapper']").append("<img src="+$(this)[0]["media_url"]+" width=150 class='insta-preview' />");
