@@ -25,8 +25,7 @@ use craft\helpers\UrlHelper;
 use craft\log\MonologTarget;
 use Monolog\Formatter\LineFormatter;
 use Psr\Log\LogLevel;
-use yii\log\Logger;
-
+use yii\log\Dispatcher;
 use yii\base\Event;
 
 /**
@@ -175,16 +174,18 @@ class Craftagram extends Plugin {
      */
     private function _registerLogTarget(): void
     {
-        Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
-            'name' => 'craftagram',
-            'categories' => ['craftagram'],
-            'level' => LogLevel::INFO,
-            'logContext' => false,
-            'allowLineBreaks' => false,
-            'formatter' => new LineFormatter(
-                format: "[%datetime%] %message%\n",
-                dateFormat: 'Y-m-d H:i:s',
-            ),
-        ]);
+        if (Craft::getLogger()->dispatcher instanceof Dispatcher) {
+            Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
+                'name' => 'craftagram',
+                'categories' => ['craftagram'],
+                'level' => LogLevel::INFO,
+                'logContext' => false,
+                'allowLineBreaks' => false,
+                'formatter' => new LineFormatter(
+                    format: "[%datetime%] %message%\n",
+                    dateFormat: 'Y-m-d H:i:s',
+                ),
+            ]);
+        }
     }
 }
