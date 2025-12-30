@@ -1,5 +1,14 @@
 # craftagram Changelog
 
+## 4.3.0 - 2025-12-30
+
+### Fixed
+
+- Properly handle controller responses #94 (@boboldehampsink)
+- Set actionURL via Craft actionURL helper #95 (@boboldehampsink)
+- Decode data before checking result #96 (@boboldehampsink)
+- Fix logger #97 (@boboldehampsink)
+
 ## 4.2.3 - 2025-09-12
 
 ### Fixed
