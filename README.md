@@ -30,17 +30,30 @@ This plugin only presently supports the `Instagram API with Instagram Login` rou
 
 0. Run thorough the `Pre-requisites` list below.
 1. Log in to [https://developers.facebook.com](https://developers.facebook.com), and in All Apps click Create App.
-2. When asked what you want your app to do, select `Other`.
-3. If asked if you want to connect a business portfolio, select `I don't want to connect a business portfolio yet`.
-4. Select `Business` as your app type.
-5. Add a suitable app name and contact email (you can ignore adding a business portfolio).
-6. You will be redirected to your new app, from the dasboard locate the Instagram product, and click `Set Up` to add it to your app.
-7. You may need to add your instagram account in the `App Roles` section to get around any 'Insufficient Developer Role' errors. 
-8. Click `Add account` under _Generate access tokens_, you will be prompted to link your instagram account. You will note it specifies your personal account will be converted to a professional account automatically, if it isn't already. You can select either `Business` or `Creator`, depending on your use case.
-9. Enter your _Primary Site base URL_, appended with `/actions/craftagram/default/auth` (i.e. https://www.yourwebsite.com/actions/craftagram/default/auth) into `Set up Instagram business login`.
-10. Copy `Instagram app ID` and `Instagram app secret` for use in `Configuring craftagram` below.
+2. In `App details`, add your `App name` and the contact email (which should prefill to your Meta account email).
+3. In `Use cases`, find and click `Manage messaging & content on Instagram`.
+4. In `Business` Select `I don't want to conect a business portfolio yet` 
+5. You will not have any extra requirements, as noted.
+6. Create your app.
 
-You do not have to fill out webhooks, as there is no functionality avaialble for webhooks in this plugin. Likewise, you can likely skip app review as generally usage of this plugin is for individual Instagram businesses and not client solutions. Finally, it should be possible to leave your app in Development mode, rather than switching it live. 
+### Instagram Roles
+
+If you do not do this step, you will get errors when continuing to set up your app, with an `Insufficient developer roles` error.
+
+1. On the redirected dashboard from above, locate the _App Roles_ section in the sidebar and hit `Add People`.
+2. Click _Instagram Tester_ and add your instagram account by slug.
+3. Log into your instagram account, and visit the [Apps and Websites](https://www.instagram.com/accounts/manage_access/) section
+4. Go to _Tester invitations_ and accept the app invite.
+
+### Use case
+
+1. Go back to the facebook developer dashboard, locate the `Use cases` section in the sidebar and hit `Customise` on the instagram use case.
+2. Copy `Instagram app ID` and `Instagram app secret` for use in `Configuring craftagram` below.
+3. Click `Add account` under _Generate access tokens_, you will be prompted to link your instagram account. You will note it specifies your personal account will be converted to a professional account automatically, if it isn't already. You can select either `Business` or `Creator`, depending on your use case.
+4. Webbook subscription will automatically be enabled, but this can be disabled, as we do not push any webhooks from this app. For this reason, you can ignore the _Configure webhooks_ section, too.
+4. Click `Set up` under _Set up under instagram login_. Enter your _Primary Site base URL_, appended with `/actions/craftagram/default/auth` (i.e. https://www.yourwebsite.com/actions/craftagram/default/auth) into `Redirect URL`.
+
+Likewise, you can likely skip app review as generally usage of this plugin is for individual Instagram businesses and not client solutions. Finally, it should be possible to leave your app in Development mode, rather than switching it live. 
 
 If you do opt to switch to a live app and send for app review, please note that this is a process separate from this plugin, and I cannot offer support for this process.
 
