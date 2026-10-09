@@ -1,5 +1,11 @@
 # craftagram Changelog
 
+## 4.3.1 - 2026-10-09
+
+### Fixed
+
+- Fix "Not found" when reauthorizing #99
+
 ## 4.3.0 - 2025-12-30
 
 ### Fixed
