@@ -63,7 +63,7 @@ class DefaultController extends Controller {
         $url = rtrim(Craft::parseEnv(Craft::$app->sites->primarySite->baseUrl), '/'); 
         $appId = Craft::parseEnv($client_id);
 
-        return $this->response->redirect('https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id='.$appId.'&redirect_uri='.$url.'/actions/craftagram/default/auth&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments%2Cinstagram_business_content_publish&state='.$site_id)->send();
+        return $this->response->redirect('https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id='.$appId.'&redirect_uri='.$url.'/actions/craftagram/default/auth&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments%2Cinstagram_business_content_publish&state='.$site_id);
     }
 
     /**
@@ -79,7 +79,7 @@ class DefaultController extends Controller {
 
         if ($code != '') {
             $getToken = Craftagram::$plugin->craftagramService->getShortAccessToken($code, $siteId);
-            return $this->response->redirect(UrlHelper::cpUrl('craftagram/settings/' . $siteId))->send();
+            return $this->response->redirect(UrlHelper::cpUrl('craftagram/settings/' . $siteId));
         }
     }
 
